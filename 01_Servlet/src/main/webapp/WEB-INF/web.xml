@@ -9,4 +9,15 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  <servlet>
+  	<servlet-class>ex02_urlmapping.HiServlet</servlet-class>
+  	<servlet-name>ABC</servlet-name>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>ABC</servlet-name>
+  	<url-pattern>/hi</url-pattern>
+  </servlet-mapping>
+    
 </web-app>
