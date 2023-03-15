@@ -1,4 +1,4 @@
-package ex01_lifcycle;
+package ex01_lifecycle;
 
 import java.io.IOException;
 import javax.servlet.ServletConfig;
