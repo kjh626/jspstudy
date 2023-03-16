@@ -50,7 +50,7 @@ public class ResponseServlet extends HttpServlet {
 		// 2. 응답 스트림 생성(IOException 처리가 필요하다. -> 이미 처리되어 있다.)
 		PrintWriter out = response.getWriter();    // PrintWriter의 출력 메소드 : append(), write(), print(), println() 등
 
-		// 3. Servlet에 응답만들기
+		// 3. Servlet에 응답 만들기
 		out.println("<!DOCTYPE html>");
 		out.println("<html lang=\"ko\">");
 		out.println("<head>");
@@ -64,7 +64,7 @@ public class ResponseServlet extends HttpServlet {
 		out.println("</html>");
 		out.flush();  // (혹시) 출력 스트림에 남아있는 데이터를 모두 내보내기
 		out.close();  // 출력 스트림은 꼭 close() 해줘야 한다. 
-		// 위 코드는 현재 베이스가 자바. -> 자바인 태그이다. (별로다..별로다..별로다..별로다..) 그래서 JSP씀
+		// 위 코드는 현재 베이스가 자바. -> 자바인 태그이다. (별로다..별로다..별로다..별로다..추가/수정을 어렵게 하고 가독성도 떨어지는 등, 다른 서버사이드 언어보다 불편하다.) 그래서 JSP씀
 		// JSP는 반대 => HTML을 기반으로 자바로.. 
 		// 자바스크립트를 자바로 써서 사용한다.(우리 보통 alert창 만들 때)
 	}
