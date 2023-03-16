@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../resources/js/lib/jquery-3.6.4.min.js"></script>
+<script>
+	function fnGugudan(){
+		var danValue = parseInt(Math.random() * 8) + 2;
+		var numValue = parseInt(Math.random() * 9) + 1;
+		$('#dan').text(danValue);
+		$('#num').text(numValue);		
+		$('#result').val('');  // 새로고침하면 빈문자열로 보이게 해줌.
+	}
+	
+	$(function(){
+		fnGugudan();
+		$('#btn_refresh').on('click', fnGugudan);  // 선언 함수를 이벤트 리스너로 사용하는 경우에는 함수 이름만 작성한다.
+		$('#btn').on('click', function(){
+			location.href = '/01_Servlet/GugudanServlet?dan=' + $('#dan').text() + '&num=' + $('#num').text() + '&result=' + $('#result').val();
+		});
+	});
+</script>
+</head>
+<body>
+
+	<!-- JavaScript
+	0 =< Math.random() < 1  난수 발생 -->
+
+	<!-- 구구단 랜덤으로 하나가 나온다 ( 9 x 3 = ㅁ입력란) 우리가 답을 쓰고 버튼 누르면 맞았다 틀렸다 답을 내주는 프로그램
+	 -->
+	<div>
+		<div><input type="button" value="새로고침" id="btn_refresh"></div>
+		<span id="dan"></span>
+		<span>X</span>
+		<span id="num"></span>
+		<span>=</span>
+		<input type="text" id="result" size="4">
+		<input type="button" id="btn" value="계산">
+	</div>
+
+	 <!-- 내 풀이 <div id="gugudan">
+	 	
+	 </div>
+	 
+	 <script>
+	 	var a = parseInt(Math.random() * 8) + 2;
+	 	var b = parseInt(Math.random() * 9) + 1;
+	 	$('#gugudan').text(a + ' x ' + b + ' = ');
+	 	$('#gugudan').append($('<span>').append($('<input>').attr('id', 'answer').attr('type', 'text').attr('size', '2')));
+	 	$('#gugudan').append($('<input>').attr('id', 'click').attr('type', 'button').attr('size', '3').val('확인'));
+	 	$('#click').on('click', function(){
+	 		var c = a * b;
+	 		if($('#answer').val() == c){
+	 			alert('정답');
+	 		} else {
+	 			alert('땡');
+	 			$('#answer').val('');
+	 			$('#answer').focus();
+	 		}
+	 	});
+	 </script> -->
+	 
+	 
+
+</body>
+</html>

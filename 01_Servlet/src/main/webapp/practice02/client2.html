@@ -5,37 +5,39 @@
 <title>Insert title here</title>
 <script src="../resources/js/lib/jquery-3.6.4.min.js"></script>
 <script>
+
+
+
 	function fnGugudan(){
 		var danValue = parseInt(Math.random() * 8) + 2;
 		var numValue = parseInt(Math.random() * 9) + 1;
 		$('#dan').text(danValue);
 		$('#num').text(numValue);		
+		$('#hidden_dan').val(danValue);   // span을 넘기는게 아니라 input태그가 필요해서 히든으로 만들어줌
+		$('#hidden_num').val(numValue);
+		$('#result').val('').focus();  // 새로고침하면 빈문자열로 보이게 해줌.
 	}
 	
 	$(function(){
 		fnGugudan();
 		$('#btn_refresh').on('click', fnGugudan);  // 선언 함수를 이벤트 리스너로 사용하는 경우에는 함수 이름만 작성한다.
-		$('#btn').on('click', function(){
-			location.href = '/01_Servlet/GugudanServlet?dan=' + $('#dan').text() + '&num=' + $('#num').text() + '&result=' + $('#result').val();
-		});
 	});
 </script>
 </head>
 <body>
 
-	<!-- JavaScript
-	0 =< Math.random() < 1  난수 발생 -->
-
-	<!-- 구구단 랜덤으로 하나가 나온다 ( 9 x 3 = ㅁ입력란) 우리가 답을 쓰고 버튼 누르면 맞았다 틀렸다 답을 내주는 프로그램
-	 -->
 	<div>
-		<div><input type="button" value="새로고침" id="btn_refresh"></div>
-		<span id="dan" name="dan"></span>
-		<span>X</span>
-		<span id="num" name="num"></span>
-		<span>=</span>
-		<input type="text" id="result" size="4">
-		<input type="button" id="btn" value="계산">
+		<form method="POST" action="/01_Servlet/GugudanServlet">
+			<div><input type="button" value="새로고침" id="btn_refresh"></div>
+			<span id="dan"></span>
+			<span>X</span>
+			<span id="num"></span>
+			<span>=</span>
+			<input type="hidden" name="dan" id="hidden_dan">
+			<input type="hidden" name="num" id="hidden_num">
+			<input type="text" name="result" size="4">
+			<input type="submit" value="계산">
+		</form>
 	</div>
 
 	 <!-- 내 풀이 <div id="gugudan">
