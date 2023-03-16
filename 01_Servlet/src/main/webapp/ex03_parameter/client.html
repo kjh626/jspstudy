@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="../resources/js/lib/jquery-3.6.4.min.js"></script>
 </head>
 <body>
 
@@ -15,6 +16,7 @@
 		5. $.ajax({})을 이용한 비동기 처리 요청
 	-->
 	
+	<!-- 서버 경로 작성하는 방법 -->
 	<ul>
 		<!-- getServlet으로 가라는 것이다. -->
 		<li><a href="http://localhost:9090/01_Servlet/GetServlet">정상이동</a></li>
@@ -28,6 +30,54 @@
 	<div>
 		<a href="/01_Servlet/GetServlet?model=냉장고&price=200">파라미터전송</a>
 	</div>
+	
+	<!-- <form> 태그로 submit하기(파라미터 보내기) -->
+	<!-- name이라는 속성을 적어줘야만 서블릿이 파라미터로 인식을 할 수 있다. name을 꼭 적어줘야 한다. -->
+	<!-- <form> 태그 내의 입력요소중 name에 의해서 결정된다. <a>링크와 같은 결과를 가져다 줌. -->
+	<!-- ※ id는 프론트 단에서 입력창을 인식하는 이름/ name은 백단에서 인식하기 위한 이름. 그렇기 때문에 id와 name을 같게 맞춰서 적어주는 게 좋다.-->
+	<!-- ★ 잊지 말아야할 건 name 속성이 parameter다 ★ -->
+	<div>
+		<form action="/01_Servlet/GetServlet">
+			<label for="model">모델명</label>
+			<input type="text" id="model" name="model" placeholder="모델명">
+			<label for="price">가격</label>
+			<input type="text" id="price" name="price" placeholder="가격(원)">
+			<button type="submit">파라미터전송</button>
+		</form>
+	</div>
+
+	<!-- location.href 또는 open() 이용해서 파라미터 보내기 -->
+	
+	<!-- jQuery를 쓰려면 jQuery 라이브러리가 필요, web component는 모두 webapp에 저장해줘야 한다.(resources\js\lib\jquery-3.6.4.min.js -->
+	<div>
+		<button id="btn">파라미터전송</button>
+	</div>
+	<script>
+		$('#btn').on('click', function(event){
+			// location.href = '/01_Servlet/GetServlet?model=tv&price=100';
+			open('/01_Servlet/GetServlet?model=tv&price=100'); // open은 새 창으로 열린다.
+		});
+	</script>
+	
+	
+	
+	<!--
+		POST 방식으로 요청
+		1. <form> 태그를 이용한 submit
+		2. $.ajax({})을 이용한 비동기 처리 요청
+	-->
+	<!-- form태그 내부에서 name이 설정되어 있으면 무조건 갔다고 보기 때문에 null처리 되지 않고 빈 문자열이 전달된다.(null은 보내지도 않음, 빈 문자열은 보냈는데 빈 문자열) -->
+	<div>
+		<form method="POST" action="/01_Servlet/PostServlet">
+			<label for="model">모델명</label>
+			<input type="text" id="model" name="model">
+			<label for="price">가격</label>
+			<input type="text" id="price" name="price">
+			<input type="submit" value="파라미터 전송">
+		</form> 
+	</div>
+	
+	
 	
 
 </body>

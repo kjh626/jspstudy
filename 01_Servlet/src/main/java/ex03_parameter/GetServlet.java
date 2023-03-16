@@ -27,7 +27,7 @@ public class GetServlet extends HttpServlet {
 			 
 		*/
 		
-		// 요청 정보를 UTF-8로 인코딩한다. (우리가 냉장고(한글) 보냈다)
+		// 요청 정보를 UTF-8로 인코딩한다. (우리가 냉장고(한글) 보냈다) => 이런 작업 항상 해줘야 하기 때문에 나중에 filter작업으로 따로 모아둔다.
 		request.setCharacterEncoding("UTF-8");
 		
 		// 요청 파라미터를 꺼낸다. (request에 들어있다.) getParameter() 쓰면 된다.
