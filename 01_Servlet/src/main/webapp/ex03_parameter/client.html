@@ -60,6 +60,29 @@
 	</script>
 	
 	
+	<!-- 배열을 파라미터로 보내기 -->
+	<!-- type="radio": gender의 경우 동일한 name이 여러 개여도 배열로 받으면 안 된다. -->
+	<div>
+		<form action="/01_Servlet/ArrayServlet">
+			<div>
+				<input type="text" name="tel" size="4" maxlength="3">
+				-
+				<input type="text" name="tel" size="4" maxlength="4">
+				-
+				<input type="text" name="tel" size="4" maxlength="4">
+			</div>
+			<div>
+				<input type="checkbox" name="hobbies" value="travle" id="travle">
+				<label for=travle>여행</label>
+				<input type="checkbox" name="hobbies" value="swim" id="swim">
+				<label for=swim>수영</label>
+				<input type="checkbox" name="hobbies" value="golf" id="golf">
+				<label for=golf>골프</label>
+			</div>
+			<button>배열전송</button>
+		</form>
+	</div>
+	
 	
 	<!--
 		POST 방식으로 요청
