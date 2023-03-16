@@ -9,6 +9,7 @@
 	$(function(){
 		
 		// submit 이벤트 (★이벤트 대상 = <form>★)
+		// => 입력이 안 되면 submit막는 게 왜 중요하냐? 오류발생함, Practice01 서블릿에서 substring(1) 썼는데 빈 문자열의 인덱스 1은 찾을 수 없다. 이런 경우를 막기 위해서 submit 막는 게 중요함.
 		$('#frm_join').on('submit', function(event){
 			
 			// 아이디 공백 체크
