@@ -24,7 +24,7 @@ public class RedirectServlet1 extends HttpServlet {
 		// redirect를 이용해서 다른 서블릿(다른 서버 경로)으로 이동하기
 		// 코드를 외우려고 하지마라 ( 123 으로 전화걸면(요청) 100으로 전화걸라고 알려줌(응답) )
 		// ※ redirect는 response를 통해 호출하는 것이다. sendRedirect(*여기엔 경로 적어 줘라*)를 이용 
-		response.sendRedirect("/01_Servlet/RedirectServlet2?" + "model=" + model);
+		response.sendRedirect("/01_Servlet/RedirectServlet2");
 		
 		
 		
