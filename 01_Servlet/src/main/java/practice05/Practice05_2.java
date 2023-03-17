@@ -19,7 +19,8 @@ public class Practice05_2 extends HttpServlet {
 		String model = request.getParameter("model");
 		System.out.println("Practice05_2: " + model);
 		
-		
+		System.out.println(request.getServletContext().getRealPath("practice05"));   // webapp의 practice05 폴더의 실제경로를 알려달라. 외우고다니지 말고 이렇게 찍어보면 됨.
+																					 // 업로드할 때 경로 여기로 잡으면 어딘지 못찾지 말고 이렇게 찾아라.
 		
 	}
 
