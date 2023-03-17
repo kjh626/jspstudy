@@ -33,34 +33,25 @@ public class CreateFileServlet extends HttpServlet {
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		
-		String date = LocalDate.now().toString();
-		String fileName = date + "-" + writer + "-" + title + ".txt";
-		
-		File dir = new File(request.getServletContext().getRealPath("practice06") + File.separator + "storage");
+		String filename = LocalDate.now().toString() + "-" + writer + "-" + title + ".txt";
+		File dir = new File(request.getServletContext().getRealPath("storage"));
 		if(dir.exists() == false) {
-			dir.mkdirs();		
-		}
-		File file = new File(dir, fileName);
-		
-		BufferedWriter bw = null;
-		
-		try {
-			
-			bw = new BufferedWriter(new FileWriter(file));
-			bw.write(content);
-			bw.close();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
+			dir.mkdirs();
 		}
 		
+		File file = new File(dir, filename);
+		BufferedWriter bw = new BufferedWriter(new FileWriter(file));
 		
+		bw.write(content);
+		bw.flush();
+		bw.close();
+		// try catch없는 이유는 이미 throws IOException 하고있어서 필요없다.
 		
 		/*
 			2. FileResponseServlet으로 리다이렉트
 				파일명 전달
 		*/
-		response.sendRedirect("/01_Servlet/FileResponseServlet?filename=" + URLEncoder.encode(fileName, "UTF-8"));
+		response.sendRedirect("/01_Servlet/FileResponseServlet?filename=" + URLEncoder.encode(filename, "UTF-8"));
 		
 	}
 
