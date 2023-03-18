@@ -7,7 +7,22 @@
 <script>
 	$(function(){
 	
-	})
+		$('#frm_join').on('submit', function(event){
+			
+			if($('#id').val() == ''){
+				alet('아이디는 필수입니다.');
+				$('#id').focus();
+				event.preventDefault();
+				return;
+			}
+			else if($('#pw').val() == '' || $('#pw').val() != $('#pw').val()){
+				alet('비밀번호를 확인하세요.');
+				event.preventDefault();
+				return;
+			}
+			
+		});
+	});
 </script>
 </head>
 <body>
