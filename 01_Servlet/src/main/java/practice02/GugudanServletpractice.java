@@ -18,15 +18,15 @@ public class GugudanServletpractice extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		String strDan = request.getParameter("dan");
-		String strnum = request.getParameter("num");
+		String strNum = request.getParameter("num");
 		String strResult = request.getParameter("result");
 		
 		int dan = 0, num =0, result = 0;
 		if(strDan != null && strDan.isEmpty() == false) {
 			dan = Integer.parseInt(strDan);
 		}
-		if(strnum != null && strnum.isEmpty() == false) {
-			num = Integer.parseInt(strnum);
+		if(strNum != null && strNum.isEmpty() == false) {
+			num = Integer.parseInt(strNum);
 		}
 		if(strResult != null && strResult.isEmpty() == false) {
 			result = Integer.parseInt(strResult);

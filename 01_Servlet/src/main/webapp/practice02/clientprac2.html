@@ -11,12 +11,12 @@
 		$('#dan').text(danValue);
 		$('#num').text(numValue);
 		$('#hidden_dan').val(danValue);
-		$('#hidden_num').val(danValue);
+		$('#hidden_num').val(numValue);
 		$('#result').val('').focus();
 	}
 	$(function(){
 		fnGugudan();
-		$('#btn_refresh').on('click', fnGugudan);
+		$('#btn_refresh').on('click', fnGugudan);  
 	});
 </script>
 </head>
@@ -34,7 +34,7 @@
 			<input type="hidden" name="dan" id="hidden_dan">
 			<input type="hidden" name="num" id="hidden_num">
 			<input type="text" name="result" size="4">
-			<input type="submit" id="btn" value="계산">
+			<input type="submit" value="계산">
 		</form>
 	
 	</div>
