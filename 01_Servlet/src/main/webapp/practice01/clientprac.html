@@ -9,14 +9,15 @@
 	
 		$('#frm_join').on('submit', function(event){
 			
+			// 아이디 공백 체크
 			if($('#id').val() == ''){
-				alet('아이디는 필수입니다.');
+				alert('아이디는 필수입니다.');
 				$('#id').focus();
 				event.preventDefault();
 				return;
 			}
 			else if($('#pw').val() == '' || $('#pw').val() != $('#pw').val()){
-				alet('비밀번호를 확인하세요.');
+				alert('비밀번호를 확인하세요.');
 				event.preventDefault();
 				return;
 			}
@@ -27,7 +28,7 @@
 </head>
 <body>
 	
-	 <form id="frm_join" method="post" action="/01_Servlet/Practice01">
+	 <form id="frm_join" method="post" action="/01_Servlet/Practice_p_01">
         <label for="id"><strong>아이디</strong></label>
         <br>
         <input type="text" name="id" id="id">@naver.com
