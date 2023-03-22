@@ -52,9 +52,19 @@
 				/* 요청 */
 				type: 'get',
 				url: '/01_Servlet/JSONServlet',
-				data: $('#frm_person').serialize()    // form 내부의 모든 입력 요소를 직렬로,일렬로 보내는 메소드(★name 속성★이 파라미터로 인식된다.)
+				data: $('#frm_person').serialize(),    // form 내부의 모든 입력 요소를 직렬로,일렬로 보내는 메소드(★name 속성★이 파라미터로 인식된다.)
 				
 				/* 응답 */
+				dataType: 'json',   // 응답 데이터 타입(response.setContentType("application/json; charset=UTF-8");) 과 대응
+				success: (resData)=>{  // res == '{"name":"마돈나","age":"50"}' 이렇게 생김 | ↓ '{}' 여기에 붙은 작은따옴표는 문자열(String)을 말함, 작은따옴표 떨어지면 객체(object)이다. -> (서블릿의 응답데이터 타입도 application/json로 설정되었고,)dataType: 'json' 으로 받기 때문에 작은따옴표가 자동으로 떨어진다.↓ <- JSON데이터가 텍스트형식으로 전달됐으면 원래는 JSON.parse(resData) 를 해줬어야 했다.
+					// $('#content2').append($('<div>').text(resData));		// 텍스트 형식으로 응답(서블릿에서) 응답받는 데이터타입은(html에서) json으로 받는다 => [object Object] 이렇게 나온다.
+					$('#content2').append($('<div>').text(resData.name));   // 프로퍼티로 가져올 수 있을까? 가능!!
+					$('#content2').append($('<div>').text(resData.age)); 
+					
+				}, error: (jqXHR)=>{
+					$('#content2').append($('<div>').text('status : ' + jqXHR.status));
+					$('#content2').append($('<div>').text('responseText : ' + jqXHR.responseText));
+				}
 				
 			});
 		});
