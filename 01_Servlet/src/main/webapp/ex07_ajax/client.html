@@ -10,7 +10,7 @@
 	<div>
 		<input type="text" id="model" placeholder="모델">
 		<input type="text" id="price" placeholder="가격">
-		<div><button id="btn1">텍스트요청</button></div>
+		<button id="btn1">텍스트요청</button>
 		<div id="content1">
 		</div>
 	</div>
@@ -36,6 +36,32 @@
 			});
 		});
 	</script>
+	
+	<div>
+		<form id="frm_person">
+			<input type="text" name="name" placeholder="이름">
+			<input type="text" name="age" placeholder="나이">
+			<input type="button" id="btn2" value="JSON요청">
+		</form>
+		<div id="content2"></div>		
+	</div>
+	<script>
+		$('#btn2').on('click', function(){
+			$('#content2').empty();
+			$.ajax({
+				/* 요청 */
+				type: 'get',
+				url: '/01_Servlet/JSONServlet',
+				data: $('#frm_person').serialize()    // form 내부의 모든 입력 요소를 직렬로,일렬로 보내는 메소드(★name 속성★이 파라미터로 인식된다.)
+				
+				/* 응답 */
+				
+			});
+		});
+	</script>
+	
+	
+	
 
 </body>
 </html>
