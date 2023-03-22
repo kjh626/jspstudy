@@ -8,11 +8,12 @@
 <body>
 
 	<div>
-		<input type="text" id="model" placeholder="모델">
-		<input type="text" id="price" placeholder="가격">
-		<button id="btn1">텍스트요청</button>
-		<div id="content1">
+		<div>
+			<input type="text" id="model" placeholder="모델">
+			<input type="text" id="price" placeholder="가격">
+			<button id="btn1">텍스트요청</button>
 		</div>
+		<div id="content1"></div>
 	</div>
 	<script>
 		$('#btn1').on('click', function(){
@@ -20,7 +21,7 @@
 			$.ajax({
 				/* 요청 */
 				type: 'get',					// 요청 메소드
-				url: '/01_Servlet/TextServlet',	// 요청 URL
+				url: '/01_Servlet/TextSevlet',	// 요청 URL
 				data: 'model=' + $('#model').val() + '&price=' + $('#price').val(), // 요청 파라미터 를 작성해줄 때는 URL에 ?를 붙여 작성하지 않고 프로퍼티(data)로 만들어준다.
 				/* async: true,  async (비동기처리) 생략*/ 
 				
