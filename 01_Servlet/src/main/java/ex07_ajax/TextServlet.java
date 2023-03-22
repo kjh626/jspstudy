@@ -21,6 +21,9 @@ public class TextServlet extends HttpServlet {
 		// 요청 파라미터
 		String model = request.getParameter("model");
 		String strPrice = request.getParameter("price");
+		
+		// price입력창에 100,000 이렇게 쉼표 찍어서 입력하고 버튼누르면 안 된다. NumberFormatException이 발생.. 예외로 처리해야 한다.
+		// try catch해야함.
 		int price = 0;
 		if(strPrice != null && strPrice.isEmpty() == false) {
 			price = Integer.parseInt(strPrice);
@@ -37,6 +40,7 @@ public class TextServlet extends HttpServlet {
 		out.println(resData);
 		out.flush();
 		out.close();
+		
 	
 	}
 
