@@ -39,18 +39,20 @@ public class JSONServlet extends HttpServlet {
 				age = Integer.parseInt(strAge);
 			}
 			
+			// 이름 예외 처리
+			if(name.length() > 6 || name.length() < 2) {
+				throw new NameHandleException(name + "은(는) 잘못된 이름입니다.", 601);
+			}
 			// 나이 예외 처리
 			if(age < 0 || age > 100) {
 				throw new AgeHandleException(age + "살은 잘못된 나이입니다.", 600); // (메시지, 코드값) 전달
 			}
-			// 이름 예외 처리
-			if(name.length() > 6 || name.length() < 2) {
-				throw new RuntimeException(name + "은 잘못된 이름입니다.");
-			}
 			/* 
 				똑같이 런타임익셉션으로 catch로 던지면 어떻게 구분해서 별도로 처리할까..?
 				일반적으로 쓰는 방법은 AgeException, NameException 이렇게 예외를 만들어준다.
-				
+
+				※ 상속이 왜 필요한가? 코드의 재활용!! <- AgeException, NameException 코드 완전 복붙이잖아!? + catch블록의 코드도 똑같...
+				둘의 부모(슈퍼클래스)를 만들어서 하나에 다 만들어 주면 2개의 예외(복붙코드를 가진)를 각각 다른 클래스로 만들어 줄 필요가 없어진다.
 			*/
 			
 			// 응답을 제이슨요청으로 할 거니까 응답에서는 이전과 좀 달라진다.
@@ -90,6 +92,14 @@ public class JSONServlet extends HttpServlet {
 				out.close();
 			*/
 			// catch블록에서 작성한 응답은 error로 넘어간다.
+			
+		} catch(NameHandleException e) {
+			
+			response.setContentType("text/plain; charset=UTF-8");
+			
+			response.setStatus(e.getErrorCode());
+			
+			response.getWriter().println(e.getMessage());
 			
 		}
 		
