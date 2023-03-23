@@ -27,9 +27,38 @@
 				dataType: 'text',
  				success: (resData)=>{
 					$('#content1').append(resData);
+				},
+				error: (jqXHR)=>{
+					$('#content1').append($('<div>').text('status : ' + jqXHR.status));
+					$('#content1').append($('<div>').text('responseText : ' + jqXHR.responseText));
 				}
 			});
 		}
+	</script>
+	
+	
+	<div>
+		<form id="frm_person">
+			<input type="text" name="name" placeholder="이름">
+			<input type="text" name="age" placeholder="나이">
+			<input type="button" id="btn2" placeholder="JSON요청">
+		</form>
+		<div id="content2"></div>
+	</div>
+	<script>
+		$('#btn2').on('click', function(){
+			$('#content2').empty();
+			$.ajax({
+				type: 'get',
+				url: '/01_Servlet/JSONServletpractice',
+				data: $('#frm_person').serialize(),
+				
+				dataType: 'json',
+				success: (resData)=>{
+					
+				}
+			})
+		})
 	</script>
 
 
