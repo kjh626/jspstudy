@@ -32,5 +32,36 @@
 		}
 	</script>
 
+
+	<div>
+		<form id="frm_lecture">
+			<input type="text" name="title" placeholder="강의명">
+			<input type="text" name="professor" placeholder="교수">
+			<input type="text" name="number" placeholder="번호">
+			<input type="button" id="btn3" value="XML요청">
+		</form>
+		<div id="content3"></div>
+	</div>
+	<script>
+		$('#btn3').on('click', function(){
+			$('#content3').empty();
+			$.ajax({
+				type: 'get',
+				url: '/01_Servlet/XMLServletpractice',
+				data: $('#frm_lecture').serialize(),
+				
+				dataType: 'xml',
+				success: (resData)=>{
+					var ul = $('<ul>');
+					ul.append($('<li>').text('강의명 : ' + $(resData).find('title').text()));
+					ul.append($('<li>').text('교수 : ' + $(resData).find('professor').text()));
+					ul.append($('<li>').text('번호 : ' + $(resData).find('number').text()));
+					$('#content3').append(ul)
+				}
+			})
+		})
+	</script>
+	
+
 </body>
 </html>

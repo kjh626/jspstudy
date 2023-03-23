@@ -31,6 +31,7 @@ public class XMLServlet extends HttpServlet {
 		}
 
 		// 응답할 XML 만들기(JSONObject를 먼저 만든 뒤 XML로 변환)
+		// json 라이브러리로  json -> xml 변환 기능을 쓸 수 있다.
 		/*
 			<book>
 				<title>제목</title>
@@ -53,6 +54,7 @@ public class XMLServlet extends HttpServlet {
 		JSONObject obj2 = new JSONObject();
 		obj2.put("book", obj);
 		
+		System.out.println(obj2);
 		String resData = XML.toString(obj2);
 		// System.out.println(resData);  // <book><author>22</author><price>33</price><title>11</title></book> 이렇게 출력.(태그들의 순서는 상관없다.)
 		

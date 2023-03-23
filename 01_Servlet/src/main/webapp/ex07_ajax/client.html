@@ -80,7 +80,6 @@
 		});
 	</script>
 	
-	<!-- json 라이브러리로  json -> xml 변환 기능을 쓸 수 있다. -->
 	<div>
 		<form id="frm_book">
 			<input type="text" name="title" placeholder="제목">
@@ -101,6 +100,7 @@
 				/* 응답 */
 				dataType: 'xml',
 				success: (resData)=>{
+					// ul을 jQuery 래퍼로 묶어 변수처리 해서 내부에 li태그를 추가할 수 있게 해준다. 
 					var ul = $('<ul>');
 					ul.append($('<li>').text('제목 : ' + $(resData).find('title').text()));
 					ul.append($('<li>').text('저자 : ' + $(resData).find('author').text()));

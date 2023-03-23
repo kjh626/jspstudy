@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../resources/js/lib/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+
+	<div>
+		<h1>시도별 실시간 측정정보 조회</h1>
+		<form id="frm1">
+			<select name="sidoName">	<!-- 사이트의 파라미터이름이랑 맞춰줬다. -->
+				<option value="전국">전국</option>
+				<option value="서울">서울</option>
+				<option value="부산">부산</option>
+				<option value="대구">대구</option>
+				<option value="인천">인천</option>
+			</select>	
+			<select name="returnType" id="returnType">
+				<option value="xml">XML</option>
+				<option value="json">JSON</option>
+			</select>
+			<input type="button" id="btn1" value="조회하기">
+		</form>
+		<div id="content1"></div>    <!-- 결과 나타내기 위한 div -->
+	</div>
+	<script>
+		$('#btn1').on('click', function(){
+			$('#content1').empty();
+			$.ajax({
+				type: 'get',
+				url: '/01_Servlet/AirKoreaApiServlet',
+				data: $('#frm1').serialize(),
+				dataType: $('#returnType').val(),  // json이나 xml
+				success: (resData)=>{
+					$
+				}
+			})
+		})
+	</script>
+
+</body>
+</html>
