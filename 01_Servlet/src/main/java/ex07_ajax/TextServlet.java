@@ -46,7 +46,7 @@ public class TextServlet extends HttpServlet {
 			
 			// 출력
 			String resData = "모델은 " + model + "이고, 가격은 " + price + "원입니다.";
-			out.println(resData);    // 여기서 출력한 데이터가 success의 resData(일부러 이름 맞춰준것)로 넘어간다.
+			out.println(resData);    // 여기서 출력한 데이터가 success의 resData(일부러 이름 맞춰준것)(매개변수)로 넘어간다.
 			out.flush();
 			out.close();
 			
@@ -58,14 +58,14 @@ public class TextServlet extends HttpServlet {
 			// 응답메시지 : 가격을 확인하세요
 			
 			// 응답메시지 타입
-			response.setContentType("text/plain; charset=UTF-8");
+			response.setContentType("text/plain; charset=UTF-8");   // §예외 메시지 text로 처리
 			
 			// 응답코드(status)  ⇔  jqXHR.status 과 대응
-			response.setStatus(600);
+			response.setStatus(600);  								// §응답코드는 status값으로 부여
 			
 			// 응답메시지(responseText)  ⇔  jqXHR.responseText 과 대응
 			PrintWriter out = response.getWriter();
-			out.println("가격을 확인하세요");
+			out.println("가격을 확인하세요");  						// §이게 getMessage()
 			out.flush();
 			out.close();
 

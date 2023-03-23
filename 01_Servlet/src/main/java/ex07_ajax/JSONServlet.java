@@ -25,12 +25,12 @@ public class JSONServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		try {
+		try {  // 예외 처리를 위해
 		
 			// 요청 인코딩
 			request.setCharacterEncoding("UTF-8");
 			
-			// 요청 파라미터
+			// 요청 파라미터  <- serialize는 name속성을 통해 작동함.
 			String name = request.getParameter("name");
 			String strAge = request.getParameter("age");
 			
@@ -38,23 +38,29 @@ public class JSONServlet extends HttpServlet {
 			if(strAge != null && strAge.isEmpty() == false) {
 				age = Integer.parseInt(strAge);
 			}
+			
+			// 나이 예외 처리
 			if(age < 0 || age > 100) {
-				throw new RuntimeException(age + "살은 잘못된 나이입니다.");
+				throw new AgeHandleException(age + "살은 잘못된 나이입니다.", 600); // (메시지, 코드값) 전달
 			}
-			/*
+			// 이름 예외 처리
 			if(name.length() > 6 || name.length() < 2) {
 				throw new RuntimeException(name + "은 잘못된 이름입니다.");
 			}
+			/* 
+				똑같이 런타임익셉션으로 catch로 던지면 어떻게 구분해서 별도로 처리할까..?
+				일반적으로 쓰는 방법은 AgeException, NameException 이렇게 예외를 만들어준다.
+				
 			*/
 			
 			// 응답을 제이슨요청으로 할 거니까 응답에서는 이전과 좀 달라진다.
 			
-			// 응답할 JSON 데이터
+			// 응답할 JSON 데이터  <- 라이브러리로 제공하기 때문에 라이브러리(jar) 추가해줘야한다.(위에 적어놓음)
 			JSONObject obj = new JSONObject();
 			obj.put("name", name);
 			obj.put("age", age);
 			
-			System.out.println(obj.toString());   // {"name": 마돈나,"age": 50}
+			// System.out.println(obj.toString());   // {"name": 마돈나,"age": 50}
 			
 			// 응답 데이터 타입
 			response.setContentType("application/json; charset=UTF-8");    // ★★암기★★
@@ -64,21 +70,26 @@ public class JSONServlet extends HttpServlet {
 			
 			// 출력
 			String resData = obj.toString();
-			out.println(resData);    // 텍스트 형식으로 된 JSON 데이터를 응답한다.
+			out.println(resData);    // 텍스트 형식(문자열 형식)으로 된 JSON 데이터를 응답한다.
 			// out.println(obj);   이렇게 주면은(그냥 객체로 주면) 여기 라이브러리에서만 가능하다. 그래서 텍스트형식으로 바꿔서 응답하는 것이 정석이고 좋다. 
 			out.flush();
 			out.close();
 		
-		} catch(RuntimeException e) {
+		} catch(AgeHandleException e) {	// 위에서 한 new AgeHandleException 이 여기로 던져짐. e.getMessage(), e.getErrorCode() 이 2개를 꺼내쓸 수 있다.
 			
 			response.setContentType("text/plain; charset=UTF-8");
-			response.setStatus(600);
-
-			PrintWriter out = response.getWriter();
-			out.println(e.getMessage());
-			out.flush();
-			out.close();
 			
+			response.setStatus(e.getErrorCode());   // 600이 꺼내짐
+			
+			// 응답할 내용이 많지 않으면
+			response.getWriter().println(e.getMessage());
+			/*  원래는 응답메시지 출력할 때 이렇게 적어줬음.
+				PrintWriter out = response.getWriter();
+				out.println(e.getMessage());
+				out.flush();
+				out.close();
+			*/
+			// catch블록에서 작성한 응답은 error로 넘어간다.
 			
 		}
 		

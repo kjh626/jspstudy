@@ -21,7 +21,7 @@
 			$.ajax({
 				/* 요청 */
 				type: 'get',					// 요청 메소드
-				url: '/01_Servlet/TextServlet',	// 요청 URL
+				url: '/01_Servlet/TextServlet',	// 요청 URL (서버경로=/ContextPath/URLMapping)
 				data: 'model=' + $('#model').val() + '&price=' + $('#price').val(), // 요청 파라미터 를 작성해줄 때는 URL에 ?를 붙여 작성하지 않고 프로퍼티(data)로 만들어준다.
 				/* async: true,  async (비동기처리) 생략*/ 
 				
@@ -54,17 +54,26 @@
 				type: 'get',
 				url: '/01_Servlet/JSONServlet',
 				data: $('#frm_person').serialize(),    // form 내부의 모든 입력 요소를 직렬로,일렬로 보내는 메소드(★name 속성★이 파라미터로 인식된다.)
+													   // 입력요소가 2개 이상일 때는 form을 쓰는 것이 더 좋다. 파라미터 &으로 이어붙이는 것보다 serialize쓰는 게 좋다.
 				
 				/* 응답 */
 				dataType: 'json',   // 응답 데이터 타입(response.setContentType("application/json; charset=UTF-8");) 과 대응
-				success: (resData)=>{  // res == '{"name":"마돈나","age":"50"}' 이렇게 생김 | ↓ '{}' 여기에 붙은 작은따옴표는 문자열(String)을 말함, 작은따옴표 떨어지면 객체(object)이다. -> (서블릿의 응답데이터 타입도 application/json로 설정되었고,)dataType: 'json' 으로 받기 때문에 작은따옴표가 자동으로 떨어진다.↓ <- JSON데이터가 텍스트형식으로 전달됐으면 원래는 JSON.parse(resData) 를 해줬어야 했다.
+				success: (resData)=>{  // res == '{"name":"마돈나","age":"50"}' 이렇게 생김 | ↓ '{}' 여기에 붙은 작은따옴표는 문자열(String)을 말함, 작은따옴표 떨어지면 객체(object)이다. -> 서블릿에서 보내는 것은 obj.toString으로 텍스트 형식(String)으로 데이터를 보냈어도(서블릿의 응답데이터 타입도 application/json로 설정되었고,)dataType: 'json' 으로 받기 때문에 작은따옴표가 자동으로 떨어진다.↓ <- 원래는 JSON데이터가 텍스트형식으로 전달됐으면 JSON.parse(resData) 를 해줬어야 했다.
 					// $('#content2').append($('<div>').text(resData));		// 텍스트 형식으로 응답(서블릿에서) 응답받는 데이터타입은(html에서) json으로 받는다 => [object Object] 이렇게 나온다.
 					$('#content2').append($('<div>').text(resData.name));   // 프로퍼티로 가져올 수 있을까? 가능!!
 					$('#content2').append($('<div>').text(resData.age)); 
+				
+				/*
+					html에서   dataType: 'text'
+					서블릿에서 response.setContentType("text/plain; charset=UTF-8"); 으로 바꿔서 실행해보면
+					parse가 안돼서 안 나온다. 원래 웹페이지에 출력되어야 하는데.. 안 나옴
+					JSON.parse(resData).name   이런 식으로 직접 파싱을 해줘야 전달받은 데이터의 프로퍼티를 뽑아낼 수 있다.
+					JSON.parse(resData).age
+				*/
 					
 				}, error: (jqXHR)=>{
 					$('#content2').append($('<div>').text('status : ' + jqXHR.status));
-					$('#content2').append($('<div>').text('responseText : ' + jqXHR.responseText));
+					$('#content2').append($('<div>').text('responseText : ' + jqXHR.responseText));    // 응답을 만들게 되면(response.getWriter().println(e.getMessage());) 만들어진 응답은 responseText로 뽑아낼 수 있다.
 				}
 				
 			});
