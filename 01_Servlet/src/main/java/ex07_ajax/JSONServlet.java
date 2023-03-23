@@ -25,7 +25,7 @@ public class JSONServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		try {  // 예외 처리를 위해
+		try {  // 예외 처리를 위해 try-catch
 		
 			// 요청 인코딩
 			request.setCharacterEncoding("UTF-8");
@@ -52,7 +52,11 @@ public class JSONServlet extends HttpServlet {
 				일반적으로 쓰는 방법은 AgeException, NameException 이렇게 예외를 만들어준다.
 
 				※ 상속이 왜 필요한가? 코드의 재활용!! <- AgeException, NameException 코드 완전 복붙이잖아!? + catch블록의 코드도 똑같...
-				둘의 부모(슈퍼클래스)를 만들어서 하나에 다 만들어 주면 2개의 예외(복붙코드를 가진)를 각각 다른 클래스로 만들어 줄 필요가 없어진다.
+				둘의 부모(슈퍼클래스)를 만들어서 하나에 다 만들어 주면 2개의 예외(복붙코드를 가진)를 각각 다른 클래스로 만들어 줄 필요가 없어진다. => 상속으로 해결
+				-> MyHandleException을 만들어 주고 AgeException, NameException 의 슈퍼클래스(Exception)를 MyHandleException으로 바꿔준다. 
+				   그리고 생성자(super(message, errorCode);)만 남겨준다. 다 부모로 넘김.
+				동일한 부모가 이제 둘 다 처리할 수 있게 되었다. -> JSONServlet에서 catch블록을 하나를 지워 하나만 남기고 catch(MyHandleException e) 로 바꿔준다.
+				이렇게 하면 이제 개발자가 만든 예외를 catch블록 하나로 처리할 수 있게 됨.
 			*/
 			
 			// 응답을 제이슨요청으로 할 거니까 응답에서는 이전과 좀 달라진다.
@@ -77,13 +81,13 @@ public class JSONServlet extends HttpServlet {
 			out.flush();
 			out.close();
 		
-		} catch(AgeHandleException e) {	// 위에서 한 new AgeHandleException 이 여기로 던져짐. e.getMessage(), e.getErrorCode() 이 2개를 꺼내쓸 수 있다.
-			
+		} catch(MyHandleException e) {	// 위에서 한 new AgeHandleException 이 여기로 던져짐. e.getMessage(), e.getErrorCode() 이 2개를 꺼내쓸 수 있다.
+										// 마지막에 MyHandleException(두 예외의 슈퍼클래스)으로 바꿔주어 두 예외를 합쳐서 처리할 수 있도록 해줬다.
 			response.setContentType("text/plain; charset=UTF-8");
 			
-			response.setStatus(e.getErrorCode());   // 600이 꺼내짐
+			response.setStatus(e.getErrorCode());   // 600이나 601이 꺼내짐
 			
-			// 응답할 내용이 많지 않으면
+			// 응답할 내용이 많지 않으면 이렇게 적어줘도 된다.
 			response.getWriter().println(e.getMessage());
 			/*  원래는 응답메시지 출력할 때 이렇게 적어줬음.
 				PrintWriter out = response.getWriter();
@@ -93,15 +97,7 @@ public class JSONServlet extends HttpServlet {
 			*/
 			// catch블록에서 작성한 응답은 error로 넘어간다.
 			
-		} catch(NameHandleException e) {
-			
-			response.setContentType("text/plain; charset=UTF-8");
-			
-			response.setStatus(e.getErrorCode());
-			
-			response.getWriter().println(e.getMessage());
-			
-		}
+		} 
 		
 		
 		

@@ -54,11 +54,11 @@
 				type: 'get',
 				url: '/01_Servlet/JSONServlet',
 				data: $('#frm_person').serialize(),    // form 내부의 모든 입력 요소를 직렬로,일렬로 보내는 메소드(★name 속성★이 파라미터로 인식된다.)
-													   // 입력요소가 2개 이상일 때는 form을 쓰는 것이 더 좋다. 파라미터 &으로 이어붙이는 것보다 serialize쓰는 게 좋다.
+													   // 입력요소가 2개 이상일 때는 form을 쓰는 것이 더 좋다. 파라미터를 &으로 이어붙이는 것보다 serialize쓰는 게 좋다.
 				
 				/* 응답 */
 				dataType: 'json',   // 응답 데이터 타입(response.setContentType("application/json; charset=UTF-8");) 과 대응
-				success: (resData)=>{  // res == '{"name":"마돈나","age":"50"}' 이렇게 생김 | ↓ '{}' 여기에 붙은 작은따옴표는 문자열(String)을 말함, 작은따옴표 떨어지면 객체(object)이다. -> 서블릿에서 보내는 것은 obj.toString으로 텍스트 형식(String)으로 데이터를 보냈어도(서블릿의 응답데이터 타입도 application/json로 설정되었고,)dataType: 'json' 으로 받기 때문에 작은따옴표가 자동으로 떨어진다.↓ <- 원래는 JSON데이터가 텍스트형식으로 전달됐으면 JSON.parse(resData) 를 해줬어야 했다.
+				success: (resData)=>{  // res == '{"name":"마돈나","age":"50"}' 이렇게 생김 | ↓ '{}' 여기에 붙은 작은따옴표는 문자열(String)을 말함, 작은따옴표 떨어지면 객체(object)이다. -> 서블릿에서 보내는 것은 obj.toString이다, 텍스트 형식(String)으로 데이터를 보냈어도(서블릿의 응답데이터 타입도 application/json로 설정되었고,)dataType: 'json' 으로 받기 때문에 작은따옴표가 자동으로 떨어진다.↓ <- 원래는 JSON데이터가 텍스트형식으로 전달됐으면 JSON.parse(resData) 를 해줬어야 했다.
 					// $('#content2').append($('<div>').text(resData));		// 텍스트 형식으로 응답(서블릿에서) 응답받는 데이터타입은(html에서) json으로 받는다 => [object Object] 이렇게 나온다.
 					$('#content2').append($('<div>').text(resData.name));   // 프로퍼티로 가져올 수 있을까? 가능!!
 					$('#content2').append($('<div>').text(resData.age)); 
@@ -80,6 +80,36 @@
 		});
 	</script>
 	
+	<!-- json 라이브러리로  json -> xml 변환 기능을 쓸 수 있다. -->
+	<div>
+		<form id="frm_book">
+			<input type="text" name="title" placeholder="제목">
+			<input type="text" name="author" placeholder="저자">
+			<input type="text" name="price" placeholder="가격">
+			<input type="button" id="btn3" value="XML요청">
+		</form>
+		<div id="content3"></div>
+	</div>
+	<script>
+		$('#btn3').on('click', function(){
+			$('#content3').empty();
+			$.ajax({
+				/* 요청 */
+				type: 'get',
+				url: '/01_Servlet/XMLServlet',
+				data: $('#frm_book').serialize(),
+				/* 응답 */
+				dataType: 'xml',
+				success: (resData)=>{
+					var ul = $('<ul>');
+					ul.append($('<li>').text('제목 : ' + $(resData).find('title').text()));
+					ul.append($('<li>').text('저자 : ' + $(resData).find('author').text()));
+					ul.append($('<li>').text('가격 : ' + $(resData).find('price').text() + '원'));
+					$('#content3').append(ul);
+				}
+			})
+		})
+	</script>
 	
 	
 
