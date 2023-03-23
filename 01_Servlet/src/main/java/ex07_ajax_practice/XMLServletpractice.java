@@ -1,4 +1,4 @@
-package ex07_ajax;
+package ex07_ajax_practice;
 
 import java.io.IOException;
 import java.io.PrintWriter;
