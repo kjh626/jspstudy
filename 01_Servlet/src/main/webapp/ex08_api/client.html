@@ -34,10 +34,33 @@
 				data: $('#frm1').serialize(),
 				dataType: $('#returnType').val(),  // json이나 xml
 				success: (resData)=>{
-					$
+					switch($('#returnType').val()){
+					case "xml":
+						fnXml(resData);  // 코드가 길어질 거 같아서 펑션으로 처리
+						break;
+					case "json":
+						fnJson(resData);
+						break;
+					}
 				}
+			})  // ajax
+		}) // click
+		
+		function fnXml(resData){
+			// <item> 하나가 한 측정소를 의미. 일단 item이라는 태그를 찾아야함. => $(resData).find('item') 은 배열이다.
+			// 이 아이템태그 하나를 element라고 부르면 된다.
+			$.each($(resData).find('item'), (i, element)=>{
+				$('#content1').append($(element).find('stationName').text() + '<br>');    // 태그를 찾고 태그 내부의 텍스트가 필요하다.
 			})
-		})
+			
+		}
+		
+		function fnJson(resData){
+			$.each(resData.response.body.items, (i, element)=>{
+				$('#content1').append(element.stationName + '<br>');				
+			})
+		}
+		
 	</script>
 
 </body>
