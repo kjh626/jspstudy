@@ -22,7 +22,7 @@ public class CookieServlet2 extends HttpServlet {
 		// 전체 쿠키 확인하기
 		if(cookies != null) {
 			for(int i = 0; i < cookies.length; i++) {
-				System.out.println("쿠키이름 : " + URLDecoder.decode(cookies[i].getName(), "UTF-8") + ", 쿠키값 : " + URLDecoder.decode(cookies[i].getValue(), "UTF-8"));
+				System.out.println("CookieServlet2 쿠키이름 : " + URLDecoder.decode(cookies[i].getName(), "UTF-8") + ", 쿠키값 : " + URLDecoder.decode(cookies[i].getValue(), "UTF-8"));
 			}
 		}
 		

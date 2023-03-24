@@ -20,8 +20,10 @@ public class CookieServlet3 extends HttpServlet {
 		Cookie[] cookies = request.getCookies();
 		
 		// 전체 쿠키 확인하기
-		for(int i = 0; i < cookies.length; i++) {
-			System.out.println("쿠키이름 : " + URLDecoder.decode(cookies[i].getName(), "UTF-8") + ", 쿠키값 : " + URLDecoder.decode(cookies[i].getValue(), "UTF-8"));
+		if(cookies != null) {
+			for(int i = 0; i < cookies.length; i++) {
+				System.out.println("CookieServlet3 쿠키이름 : " + URLDecoder.decode(cookies[i].getName(), "UTF-8") + ", 쿠키값 : " + URLDecoder.decode(cookies[i].getValue(), "UTF-8"));
+			}
 		}
 		/*
 			향상 for문
