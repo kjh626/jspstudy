@@ -27,19 +27,23 @@ public class CookieServlet1 extends HttpServlet {
 		// 쿠키 만들기(name, value)
 		Cookie cookie1 = new Cookie("name", "김정현");
 		Cookie cookie2 = new Cookie("address", URLEncoder.encode("서울시 금천구 가산동", "UTF-8"));    // 유효하지 않은 문자(대표적으로 공백)는 UTF-8로 인코딩해서 저장한다.
+		Cookie cookie3 = new Cookie("job", URLEncoder.encode("요양 보호사", "UTF-8"));
 		
-		// 쿠키가 저장될 경로 설정하기
-		cookie1.setPath(request.getContextPath());   // 컨텍스트 패스 (/01_Servlet)
-		cookie2.setPath(request.getRequestURI());    // 전체 경로(서블릿 경로) (/01_Servlet/CookieServlet1)
+		// 쿠키가 저장될 경로 설정하기 (생략하면 컨텍스트 패스에 저장된다.)
+		cookie1.setPath("/01_Servlet");   				  // 컨텍스트 패스: request.getContextPath()
+		cookie2.setPath("/01_Servlet/CookieServlet1");    // 서블릿 경로  : request.getRequestURI()
+													      // cookie3은 경로 설정을 생략했으므로 컨텍스트 패스에 저장된다.
 		// 경로와 이름이 똑같으면 쿠키는 덮어쓰기한다.
 		
-		// 쿠키 유효시간 설정하기 (초 단위이다.)
+		// 쿠키 유효시간 설정하기 (초 단위이다.) (생략하면 세션쿠키가 된다. : 브라우저를 닫을 때까지 보관된다.)
 		cookie1.setMaxAge(60 * 60 * 24 * 7);    // 7일간 보관되는 쿠키
 		cookie2.setMaxAge(60 * 60);             // 1시간 동안 보관되는 쿠키
+												// cookie3은 유효시간 설정을 생략했으므로 세션쿠키가 된다.
 		
 		// 쿠키 저장하기(응답으로 처리해야 한다.)
 		response.addCookie(cookie1);
 		response.addCookie(cookie2);
+		response.addCookie(cookie3);
 		
 		// CookieServlet2으로 redirect 이동
 		response.sendRedirect("/01_Servlet/CookieServlet2");
