@@ -49,7 +49,7 @@ public class BindingServlet1 extends HttpServlet {
 		
 		// 페이지 이동하기
 		// redirect는 그냥 이동하는 것임.(stateless한 이동. 값없이 이동) redirect로 이동하는 것은 <a href="">랑 똑같다. + 자바스크립트의 location.href랑도 똑같다.
-		// request 전달하는 이동방법은 forward. request 전달 없는 그냥 이동은 redirect
+		// request 전달하는 이동방법은 forward. / request 전달 없는 그냥 이동은 redirect
 		
 		// 1. HttpServletRequest의 전달이 없는 이동 : redirect, <a href="">, location.href=;
 		// response.sendRedirect("/01_Servlet/BindingServlet2");    // forward를 확인해보려면 redirect코드는 주석 처리
