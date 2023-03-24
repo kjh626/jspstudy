@@ -6,7 +6,7 @@
 <script src="../resources/js/lib/jquery-3.6.4.min.js"></script>
 </head>
 <body>
-	
+
 	<style>
 		.papago {
 			display: flex;
@@ -19,24 +19,27 @@
 		}
 		.btn_area {
 			width: 50px;
-			line-height: 320px;
-			text-align: center;
+			line-height: 320px;    /* 세로 가운데로 맞춰주려고 */
+			text-align: center;    /* 글자뿐만아니라 버튼도 가운데정렬 가능하다. */
 		}
 		#text, #translatedText {
-			width: 100%;
+			width: 100%;     /* 부모가 640px */
 			height: 300px;
 			border: 1px solid gray;
-			outline: 0;
+			outline: 0;      /* 선택하면 굵게 나온다? */
 			font-size: 24px;
 		}
-		#text:focus, #translatedText:focus {
-			border: 1px solid skyblue;
+		#text:focus, #translatedText:focus { /* 선택했을때 테두리 색 바뀌게 해주려고 */
+			border: 1px solid skyblue;  			
 		}
 	</style>
+	
+	<!-- source, target, text 라는 이름은 파파고api에서 요청하는 이름이라 선생님이 그리 써준 것 -->
 	<div class="papago">
 		<div class="source_area">
 			<div>
-				<select id="source">
+				<select id="source">  <!-- form 안 쓸거라 id로 줬다 -->
+					<!-- 코드가 정해져있다. 그거에 따라 value 입력 -->
 					<option value="ko">한국어</option>
 					<option value="en">영어</option>
 					<option value="ja">일본어</option>
@@ -44,14 +47,16 @@
 			</div>
 			<div>
 				<textarea id="text"></textarea>
+				<!-- textarea의 내부 텍스트는 스크립트에서 어떻게 불러와야할까? 
+					=> 태그내부 텍스트로 본다=text() ↔ input 태그랑 다르다. -->
 			</div>
 		</div>
 		<div class="btn_area">
 			<input type="button" id="btn_translate" value="번역">
 		</div>
-		<div class="target_area">
+		<div class="target_area">    <!-- 여기는 source_area의 구성 복붙하면 된다. -->
 			<div>
-				<select id="target">
+				<select id="target">  
 					<option value="ko">한국어</option>
 					<option value="en">영어</option>
 					<option value="ja">일본어</option>
@@ -64,17 +69,18 @@
 	</div>
 	
 	<script>
+		/* 버튼을 클릭하면 ajax요청할 수 있게끔 */
 		$('#btn_translate').on('click', function(){
-			if($('#text').val() == ''){
+			if($('#text').val() == ''){     // 비어있으면 번역할 필요가 없다
 				alert('번역할 텍스트를 입력하세요');
 				$('#text').focus();
-				return;
+				return;      // 아무일도 더 진행할 필요가 없다는 뜻으로 return 함수가 끝났다는 의미인데 얘가 끝낸 펑션은 이벤트리스너 저기 click 옆에 function()임
 			}
 			$.ajax({
 				type: 'get',
-				url: '/01_Servlet/PapagoServlet',
+				url: '/01_Servlet/PapagoServletpractice',
 				data: 'source=' + $('#source').val() + '&target=' + $('#target').val() + '&text=' + $('#text').val(),
-				dataType: 'json',
+				dataType: 'json',   // papago는 json밖에 반환 안 함.
 				success: (resData)=>{
 					$('#translatedText').text(resData.message.result.translatedText);
 				}
