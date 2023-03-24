@@ -8,5 +8,23 @@
 </head>
 <body>
 
+	<div>
+		<h1>팝업화면</h1>
+	</div>
+	<div>
+		<label for="do_not_open_today">오늘 더 이상 이 창을 열지 마시오.</label>
+		<input type="checkbox" id="do_not_open_today">
+		<input type="button" value="닫기" id="btn_close">
+	</div>
+	<script>
+		$('#btn_close').on('click', function(){
+			// '오늘 더 이상 이 창을 열지 마시오'를 체크했다면 noShowPopup이라는 쿠키를 1일 동안 모든 경로('/')에서 사용할 수 있도록 저장한다.
+			if($('#do_not_open_today').is(':checked')){
+				$.cookie('noShowPopup', 'true', {path: '/', expires: 1});  // 쿠키값 'true'는 문자열이다. boolean값이 아님.
+			}
+			close();
+		})
+	</script>
+
 </body>
 </html>
