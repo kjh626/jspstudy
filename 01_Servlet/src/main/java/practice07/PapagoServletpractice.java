@@ -59,7 +59,7 @@ public class PapagoServletpractice extends HttpServlet {
 		*/
 		
 		// Papago API로 보내야 하는 파라미터(source, target, text)
-		String params = "source=" + source + "&target" + target + "&text=" + URLEncoder.encode(text, "UTF-8");    // text만 인코딩처리 해주고
+		String params = "source=" + source + "&target=" + target + "&text=" + URLEncoder.encode(text, "UTF-8");
 
 		// Papago API로 파라미터를 보내기 위해서 출력 스트림 생성
 		con.setDoOutput(true);   // dos 만들기 전으로 순서를 옮겨줬음.
