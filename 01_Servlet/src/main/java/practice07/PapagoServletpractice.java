@@ -78,14 +78,14 @@ public class PapagoServletpractice extends HttpServlet {
 			reader = new BufferedReader(new InputStreamReader(con.getErrorStream()));
 		}
 		
-		// Papago API로부터 번역 결과를 StringBuilder에 저장
+		// Papago API로부터 번역 결과를 받아서 StringBuilder에 저장
 		StringBuilder sb = new StringBuilder();
 		String line = null;
 		while((line = reader.readLine()) != null) {
 			sb.append(line);
 		}
 		
-		// StringBuilder의 번역 결과를 client.html의 ajax로 보내기
+		// StringBuilder의 번역 결과를 client.html의 ajax으로 보내기
 		response.setContentType("application/json; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println(sb.toString());
