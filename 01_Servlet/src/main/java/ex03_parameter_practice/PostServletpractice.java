@@ -1,4 +1,4 @@
-package ex03_parameter;
+package ex03_parameter_practice;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
