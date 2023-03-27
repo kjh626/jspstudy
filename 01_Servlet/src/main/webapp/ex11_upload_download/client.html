@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../resources/js/lib/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+
+	<div>      
+		<!-- 파일 첨부폼 필수 속성(복붙하면 된다) : method="post" enctype="multipart/form-data" -->
+		<form id="frm_upload" action="/01_Servlet/UploadServlet" method="post" enctype="multipart/form-data">      
+			<div>
+				<label for="uploader">작성자</label>
+				<input type="text" id="uploader" name="uploader">    <!-- action이 있는 순간 name속성을 떠올려야 함! -->
+			</div>
+			<div>
+				<label for="filename">파일첨부</label>
+				<input type="file" id="filename" name="filename">
+			</div>
+			<div>
+				<button>첨부하기</button>
+				<input type="reset" value="다시작성">
+			</div>
+		</form>
+	</div>
+	<!-- 파일을 전송할 때 생각해야할 것
+		1. 파일을 어디에 저장할 것인가? 2. 파일이름 뭘로 할 지
+		파일 전송은 jar파일의 도움을 받을 것이다. -->
+	<script>
+		/* 파일 선택할 때마다 파일이 바뀌는데 이걸 change이벤트라고 함. */
+		$('#filename').on('change', function(){
+		
+			// 파일 확장자 제한하기
+			// file입장에서는 첨부된 파일의 이름이 value임
+			// 이벤트 대상을 이벤트 상황에서는 this라고 부를 수 있다.(#filename)
+			var filename = $(this).val();    // 첨부된 파일명  / 첨부된 파일의 확장자는 마지막 마침표 뒤의 텍스트이다.(ddd.ddddd.dddd)
+			// substring(lastIndexOf(".")); => .dddd 를 가져오게 됨.
+			// 확장자는 txt 또는 TXT 대문자로 입력되어 있을 수도 있다.
+			var extname = filename.substring(filename.lastIndexOf(".") + 1).toLowerCase();    // 첨부된 파일의 확장자(소문자로 변환)
+			var acceptList = ['jpg', 'jpeg', 'png', 'gif', 'tif'];    // 허용할 확장자 목록 (일단 이미지파일 확장자로 예시를 들었다)
+			
+			if($.inArray(extname, acceptList) == -1) {    // inArray메소드: 인덱스가 반환됨. 만약에 없으면 (0,1,2,3,4)가 아니면 -1을 반환
+				alert('이미지만 첨부할 수 있습니다.');
+				$(this).val('');    // 파일 이름을 빈문자열로 바꾼다 => 입력란들은 빈문자열로 바꿔주면 리셋되는 것처럼 첨부도 빈문자열을 주면 첨부된 파일이 없어진다.
+				return;
+			}
+			// 개발자도구에서 엘러먼트에서 파일선택 선택해서 Properties를 볼 것이다. 첨부된 파일은 files[0] 인덱스는 0 이다. size를 봐라(byte로 표기)
+			
+			// 파일 크기 제한
+			var filesize = this.files[0].size;    // 첨부된 파일 크기 (jQuery $ 는 필요없다. 프로퍼티를 부르는 데는)
+			var maxsize = 1024 * 1024 * 10;  // 최대크기(10MB)
+			if(filesize > maxsize) {
+				alert('첨부파일의 최대크기는 10MB입니다.');
+				$(this).val('');    // 첨부파일 지우기
+				return;
+			}
+			
+			
+		})
+	</script>
+</body>
+</html>
