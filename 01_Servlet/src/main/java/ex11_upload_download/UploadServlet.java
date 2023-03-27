@@ -3,6 +3,7 @@ package ex11_upload_download;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
@@ -58,6 +59,7 @@ public class UploadServlet extends HttpServlet {
 				"UTF-8",        				 // 인코딩
 				new DefaultFileRenamePolicy()    // 파일명 중복 처리 정책 (파일명 뒤에 넘버링)
 		);
+		// 첨부파일 재첨부하면 뒤에 숫자1 붙어서 나왔다. (loading1.gif)
 		
 		// 요청 파라미터 (조심할 것 : MultipartRequest multipartRequest를 이용해서 파라미터를 가져와야 한다.)
 		String uploader = multipartRequest.getParameter("uploader");
@@ -83,10 +85,12 @@ public class UploadServlet extends HttpServlet {
 		out.println("<li>경로 : " + parent + "</li>");
 		out.println("<li>최종수정일 : " + lastModified + "</li>");
 		out.println("<li>파일크기 : " + size + "KB</li>");
-		out.println("<li><a href=\"/01_Servlet/FileListServlet\">첨부된 파일목록 보기</a></li>");
+		out.println("<li><a href=\"/01_Servlet/FileListServlet?parent=" + URLEncoder.encode(parent, "UTF-8") + "\">첨부된 파일목록 보기</a></li>");     // 파일 경로(parent)를 넘긴다. 파라미터로 FileListServlet로 넘긴다.-> 한번 해보는 거임
 		out.println("</ul>");
 		out.flush();
 		out.close();
+		
+		// 이런 식으로 응답을 만드는 것은 여러 가지 어려움이 있다.(자동완성도 안 되고, 스타일 주기도 어렵..) -> 자바에서 태그 만드는 것은 어렵.. 그래서 보다 쉽게 만들기 위해 JSP로 발전함
 		
 	}
 
