@@ -11,27 +11,11 @@
 	String title = opt.orElse("환영합니다.");
 %>
 <title><%=title%></title>
-<!-- 헤더는 계속 타이틀이 바뀌기 때문에 include하면 안 된다. 동적 include를 활용해 파라미터를 전달해줘서 계속 바꾸면 된다. request활용 -->
+<%-- 헤더는 계속 타이틀이 바뀌기 때문에 include하면 안 된다. 동적 include를 활용해 파라미터를 전달해줘서 계속 바꾸면 된다. request활용 --%>
+<%-- request.getContextPath() == /02_Jsp --%> 
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/header.css">
+<script src="<%=request.getContextPath()%>/resources/js/lib/jquery-3.6.4.min.js"></script>
 </head>
-<style>
-	nav ul {
-		display: flex;
-		list-style-type: none;
-	}
-	nav ul li {
-		width: 100px;
-		height: 30px;
-		text-align: center;
-		line-height: 30px;
-	}
-	nav ul li a {
-		text-decoration: none;
-		color: #181818;
-		display: block;		/* 블록레벨이 되면 너비랑 높이를 줄 수 있다. 100에 30 사이즈로 a링크가 만들어진다. */
-		width: 100%;
-		height: 100%:
-	}
-</style>
 <body>
 	<nav>
 		<ul>
