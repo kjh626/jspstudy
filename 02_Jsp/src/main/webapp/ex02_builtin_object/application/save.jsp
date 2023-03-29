@@ -61,7 +61,7 @@
 		bw.flush();
 		bw.close();
 		
-		// persistent하게.. 이후에는 파일로 저장하지 않고 DB에 저장한다
+		// persistent하게.. 나중에는 파일로 저장하지 않고 DB에 저장한다
 	%>
 	
 	<script>
