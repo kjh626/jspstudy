@@ -24,7 +24,7 @@
 				<input type="text" name="title" id="title">
 			</div>
 			<div>
-				<textarea name="content" row="5" cols="30" placeholder="내용"></textarea>
+				<textarea name="content" rows="5" cols="30" placeholder="내용"></textarea>
 			</div>
 			<div>
 				<button>작성완료</button>
