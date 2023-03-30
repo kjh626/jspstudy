@@ -12,7 +12,7 @@
 	<%--
 		<c:set></c:set>
 		1. 속성(Attribute)을 만드는 태그이다.
-		2. binding 영역(page(디폴트, 생략가능), request, session, application)을 지정할 수 있다.
+		2. binding 영역( page(디폴트, 생략가능), request, session, application )을 지정할 수 있다.
 		3. 형식
 			<c:set var="속성명" value="값" scope="영역"></c:set>
 			<c:set var="속성명" value="값" scope="영역" />
