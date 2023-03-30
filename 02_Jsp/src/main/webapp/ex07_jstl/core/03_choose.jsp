@@ -19,7 +19,7 @@
 				<c:when test="조건식">
 					실행문
 				</c:when>
-				<c:when test="조건식">   -> 아니면 이 조건식. 자바에서의 else if로 동작한다고 생각하면 됨.
+				<c:when test="조건식">   -> 위의 것이 아니면 이 조건식. 자바에서의 else if로 동작한다고 생각하면 됨.
 					실행문
 				</c:when>
 				<c:otherwise>

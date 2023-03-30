@@ -2,6 +2,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,20 +10,16 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+	<c:if test="${sessionScope.cart == null}">
+		<div>장바구니가 비었습니다.</div>	
+	</c:if>
 	
-	<%
-		// session에 저장된 cart 속성 가져오기
-		List<Map<String, Object>> cart = (List<Map<String, Object>>)session.getAttribute("cart");
-	%>
-	
-	<% if(cart == null){ %>
-		<div>장바구니가 비었습니다.</div>
-	<% } else { %>
-		<div>장바구니 목록</div>
-	 	<% for(int i = 0; i < cart.size(); i++){ %>
-	 		<div><%=cart.get(i).get("item")%> <%=cart.get(i).get("itemCount")%>개</div>
-	 	<% } %>
-	<% } %>
+	<c:if test="${sessionScope.cart != null}">
+		<c:forEach var="element"  items="${sessionScope.cart}">
+			<div>${element.item} ${element.itemCount}개</div>
+		</c:forEach>	
+	</c:if>
 	
 	<div>
 		<input type="button" value="계속쇼핑하기" onclick="goShopping()">
@@ -40,7 +37,6 @@
 			}
 		}
 	</script>
-	 		
 	
 </body>
 </html>
