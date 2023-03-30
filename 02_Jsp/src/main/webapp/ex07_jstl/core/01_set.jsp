@@ -12,19 +12,21 @@
 	<%--
 		<c:set></c:set>
 		1. 속성(Attribute)을 만드는 태그이다.
-		2. binding 영역(pageContext, request, session, application)을 지정할 수 있다.
+		2. binding 영역(page(디폴트, 생략가능), request, session, application)을 지정할 수 있다.
 		3. 형식
-			<c:set var="속성명" value="값" scope="영역">
+			<c:set var="속성명" value="값" scope="영역"></c:set>
+			<c:set var="속성명" value="값" scope="영역" />
 		4. 예시 
-			<c:set var="a" value="1" scope="page"></c:set>   (주의! pageContext아니라 page라 적음)
-			<c:set var="a" value="10" scope="request"></c:set>
-			<c:set var="a" value="100" scope="session"></c:set>
-			<c:set var="a" value="1000" scope="application"></c:set>
+			<c:set var="a" value="1" scope="page" />  (주의! pageContext아니라 page라 적음)
+			<c:set var="a" value="10" scope="request" />
+			<c:set var="a" value="100" scope="session" />
+			<c:set var="a" value="1000" scope="application" />
+			※ scope를 생략하면 page이다. scope의 default값은 page
 	--%>
 	<%-- 모든 JSTL은 EL문법이 제공된다. => value="값" -> 값 자리에 EL쓸 수 있다. --%>
 	
-	<c:set var="age" value="31" scope="page"></c:set>
-	<c:set var="isAlive" value="${age <= 100}" scope="page"></c:set>
+	<c:set var="age" value="31" scope="page" />
+	<c:set var="isAlive" value="${age <= 100}" scope="page" />
 	<%--
 		(예제)
 		bmi = 몸무게(kg) / (키(m) * 키(m))
@@ -32,10 +34,10 @@
 		bmi < 25 : 정상
 		나머지   : 비만 
 	 --%>	
-	<c:set var="height" value="1.68" scope="page"></c:set>
-	<c:set var="weight" value="61" scope="page"></c:set>
-	<c:set var="bmi" value="${weight div (height * height)}" scope="page"></c:set>
-	<c:set var="health" value="${(bmi lt 20) ? '저체중' : (bmi lt 25) ? '정상' : '비만'}" scope="page"></c:set>
+	<c:set var="height" value="1.68" scope="page" />
+	<c:set var="weight" value="61" scope="page" />
+	<c:set var="bmi" value="${weight div (height * height)}" scope="page" />
+	<c:set var="health" value="${(bmi lt 20) ? '저체중' : (bmi lt 25) ? '정상' : '비만'}" scope="page" />
 	
 	
 	<ul>
