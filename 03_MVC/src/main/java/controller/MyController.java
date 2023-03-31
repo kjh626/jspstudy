@@ -48,19 +48,18 @@ public class MyController extends HttpServlet {
 		}
 		
 		// 모델(서비스) 실행하기
-		if(myService != null) {    // nullpointerException 예외 잡기 위해서 조건 설정. 널이 아니면 실행하도록
+		// nullpointerException 예외 잡기 위해서 조건 설정. 널이 아니면 실행하도록
+		if(myService != null) {
 			actionForward = myService.execute(request, response);
 		}
-		
 		// 응답 View로 이동하기 ( 경우에 따라 redirect 이동도 가능할 수 있게끔 if처리 )
 		if(actionForward != null) {
 			if(actionForward.isRedirect()) {
 				response.sendRedirect(actionForward.getPath());
 			} else {
-				request.getRequestDispatcher(actionForward.getPath()).forward(request, response);
+				request.getRequestDispatcher(actionForward.getPath()).forward(request, response);				
 			}
 		}
-		// 
 		
 	}
 
