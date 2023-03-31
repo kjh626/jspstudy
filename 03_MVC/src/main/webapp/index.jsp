@@ -10,9 +10,9 @@
 </head>
 <body>
 
-	<h3><a href="${contextPath}/TodayServlet">오늘은 며칠입니까?</a></h3>
+	<h3><a href="${contextPath}/today.do">오늘은 며칠입니까?</a></h3>
 
-	<form action="${contextPath}/AgeServlet">
+	<form action="${contextPath}/age.do">
 		<select name="birthyear">
 			<c:forEach var="y" begin="1923" end="2023" step="1">
 				<option value="${y}">${y}년</option>
