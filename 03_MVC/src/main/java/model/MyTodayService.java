@@ -5,13 +5,20 @@ import java.sql.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import common.ActionForward;
+
 public class MyTodayService implements MyService {
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) {
+	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 
 		request.setAttribute("today", new Date(System.currentTimeMillis()));
-		return "view/output.jsp";
+		
+		// 어디로 어떻게 갈 것인가?
+		ActionForward actionForward = new ActionForward();
+		actionForward.setPath("view/output.jsp");
+		actionForward.setRedirect(false);    // forward
+		return actionForward; 
 		
 	}
 
