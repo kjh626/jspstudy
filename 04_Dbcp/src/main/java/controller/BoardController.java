@@ -15,7 +15,7 @@ import service.BoardModifyService;
 import service.BoardRemoveService;
 import service.IBoardService;
 //.do 로 끝나는 매핑. 끝나는 서픽스값은 꼭 do로 써야하는 건 아님
-@WebServlet("*.do")  // getAllBoardList.do  , getBoardByNo.do  ,  addBoard.do  ,  mofiyBoard.do  , removeBoard.do  우리가 쓸 5개의 매핑
+@WebServlet("*.do")  // getAllBoardList.do  , getBoardByNo.do  , writeBoard.do  ,  addBoard.do  ,  mofiyBoard.do  , removeBoard.do  우리가 쓸 5개의 매핑
 
 public class BoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -54,9 +54,15 @@ public class BoardController extends HttpServlet {
 		case "/removeBoard.do":
 			service = new BoardRemoveService();
 			break;
+		case "/writeBoard.do":
+			af = new ActionForward("board/write.jsp", false);   // board 폴더 아래 write.jsp 로 forward한다. (단순 이동의 경우 forward 한다.)
+			break;
+			// 이 경우에 service가 없다.. service가 null인 상태로 내려간다. if(service != null) 그냥 넘어간다. (이프 안 잡아 놨으면 null이면 널포인트익셉션 나온다.)
+			// 경로(path), 포워드(false) 로 간다!!
 		}
 		
 		// 서비스 실행 (service가 위에 null로 선언되어 있어서 nullpointerException고려해서 코드 작성해야한다.)
+		// service가 null 이 아닐 경우에만 실행
 		if(service != null) {
 			af = service.execute(request, response);
 		}
