@@ -1,8 +1,10 @@
 package repository;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.naming.Context;
@@ -55,10 +57,67 @@ public class BoardDAO {
 		return dao;    // 빨간 줄 -> 메소드 static 처리되려면 필드도 static처리해야 한다.
 	};
 	
+	
+	
+	// 자원(Connection, PreparedStatement, ResultSet) 반납하기
+	private void close() {
+		try {
+			if(rs != null) rs.close();
+			if(ps != null) ps.close();
+			if(con != null) con.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	// 게시글 목록 반환하기
 	public List<BoardDTO> selectBoardList() {
+
+		// 1. 반환할 ArrayList 생성
+		List<BoardDTO> boardList = new ArrayList<BoardDTO>();
 		
-		return null;
+		try {
+			
+			// 2. DataSource로부터 Connection 얻어 오기
+			con = dataSource.getConnection();
+			
+			// 3. 실행할 쿼리문 (쿼리문은 sql필드에 저장하기로 약속)
+			sql = "SELECT BOARD_NO, TITLE, CONTENT, MODIFIED_DATE, CREATED_DATE FROM BOARD ORDER BY BOARD_NO DESC";
+			
+			// 4. 쿼리문을 실행할 PreparedStatement 객체 생성
+			ps = con.prepareStatement(sql);
+			
+			// 5. PreparedStatement 객체를 이용해 쿼리문 실행(SELECT문 실행은 executeQuery 메소드로 한다.)
+			rs = ps.executeQuery();
+			
+			// 6. ResultSet 객체(결과 집합)를 이용해서 ArrayList로 만들어주는 작업
+			// rs.next() 메소드를 호출하면 결과 집합의 내용물이 있는지 확인할 수 있다. (1번행이 있는지 없는지. 있으면 true) 
+			// 결과가 있으면 rs.getInt("BOARD_NO") 이렇게 정보를 가지고 올 수 있고, rs.getString("TITLE"), rs.getString("Content"), rs.getDate("Modified_date"), rs.getDate("Created_date") 이렇게 한땀한땀 데이터 가져오기 가능.
+			// -> 이 한땀한땀 가져온 데이터를 BoardDTO board로 만들어서 ArrayList에 추가해줘야한다.  (ArrayList add) 계속 반복..
+			while(rs.next()) {
+				// Step1. Board 테이블의 결과 행(ROW)을 읽는다.
+				int board_no = rs.getInt("BOARD_NO");
+				String title = rs.getString("TITLE");
+				String content = rs.getString("Content");
+				Date modified_date = rs.getDate("MODIFIED_DATE");
+				Date created_date = rs.getDate("CREATED_DATE");
+				
+				// Step2. 읽은 정보를 이용해서 BoardDTO 객체를 만든다.
+				BoardDTO board = new BoardDTO(board_no, title, content, modified_date, created_date);
+				
+				// Step3. BoardDTO 객체를 ArrayList에 추가한다.
+				boardList.add(board);
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			// 예외 발생 여부와 상관없이 항상 자원의 반납을 해야 한다.( finally 블록에 close() )
+			close();
+		}
+		
+		// 7. ArrayList 반환
+		return boardList;
 	}
 	
 	// 게시글 반환하기
