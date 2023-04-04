@@ -50,6 +50,7 @@
 				</thead>
 				<tbody>
 						<%-- foreach문의 items에는 배열이나 리스트를 넣어준다. --%>
+						<%-- 셀렉트문 짤 때 DESC(5,4,3,2,1) 내림차순을 줬기 때문에 늦게 작성된 게시글이 테이블 맨 위로 정렬. 그래서 인덱스가 0이 되는거 --%>
 						<c:forEach items="${boardList}" var="board" varStatus="vs">
 							<tr>
 								<td><fmt:formatNumber value="${boardListCount - vs.index}" pattern="#,##0" /></td>
