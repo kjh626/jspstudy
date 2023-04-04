@@ -123,7 +123,7 @@ public class BoardDAO {
 	// 게시글 반환하기
 	public BoardDTO selectBoardByNo(int board_no) {
 		
-		return null;
+		return new BoardDTO(1, "제목", "내용", null, new Date(System.currentTimeMillis()));
 	}
 	
 	// 게시글 삽입하기

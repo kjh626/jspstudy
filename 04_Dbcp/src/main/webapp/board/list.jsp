@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" scope="page" />
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +24,7 @@
 			// 클릭한 놈은 => this (클릭한 링크)
 			// 임시코드 : 작성일자 alert( $(this).parent().prev().text() );
 			if(confirm('삭제할까요?') == false){
-				event.preventDefault();   // <a> 태그의 기본 동작인 href 속성의 동작을 막는다.
+				event.preventDefault();   // <button> 태그의 기본 동작인 submit 속성의 동작을 막는다.
 				return;
 			}
 		})
@@ -48,12 +50,19 @@
 				</thead>
 				<tbody>
 						<%-- foreach문의 items에는 배열이나 리스트를 넣어준다. --%>
-						<c:forEach items="${boardList}" var="board">
+						<c:forEach items="${boardList}" var="board" varStatus="vs">
 							<tr>
-								<td>${board.board_no}</td>
-								<td>${board.title}</td>
-								<td>${board.created_date}</td>
-								<td><a class="link_remove" href="${contextPath}/removeBoard.do?board_no=${board.board_no}"><i class="fa-solid fa-x"></i></a></td>
+								<td><fmt:formatNumber value="${boardListCount - vs.index}" pattern="#,##0" /></td>
+								<td>
+									<a class="link_detail" href="${contextPath}/getBoardByNo.do?board_no=${board.board_no}">${board.title}</a>
+								</td>
+								<td><fmt:formatDate value="${board.created_date}" pattern="yy.MM.dd" /></td>
+								<td>
+									<form id="frm_remove" method="post" action="${contextPath}/removeBoard.do">
+										<input type="hidden" name="board_no" value="${board.board_no}">
+										<button class="link_remove"><i class="fa-solid fa-x"></i></button>
+									</form>
+								</td>
 								<%-- ★★★ board_no 파라미터로 넘기는 것이 가장 중요 ★★★ --%>
 							</tr>
 						</c:forEach>
