@@ -8,41 +8,43 @@
 <mapper namespace="mybatis.mapper.bbs">
 	
 	<!-- 목록 -->
-	<select id="selectAllBbsList">
+	<select id="selectAllBbsList" resultType="Bbs">
 		SELECT BBS_NO, TITLE, CONTENT, MODIFIED_DATE, CREATED_DATE
-		  FORM BBS
+		  FROM BBS
 		 ORDER BY BBS_NO DESC
 	</select>
 	
-	<!-- 상세보기 -->
-	<select id="selectBbsByNo">
+	<!-- 상세 -->
+	<select id="selectBbsByNo" parameterType="int" resultType="Bbs">
 		SELECT BBS_NO, TITLE, CONTENT, MODIFIED_DATE, CREATED_DATE
 		  FROM BBS
 		 WHERE BBS_NO = #{bbsNo}
 	</select>
 	
 	<!-- 삽입 -->
-	<select id="insertBbs">
+	<insert id="insertBbs" parameterType="Bbs">
 		INSERT INTO BBS
 			(BBS_NO, TITLE, CONTENT, CREATED_DATE)
 		VALUES
+		<!-- 객체로 전달해주면 마이바티스가 객체의 필드값을 꺼내서 써준다
+			#{title}이렇게 써도(마이바티스가 BbsDTO의 getter를 호출해서 값을 전달)	getTitle, getContent-->
 			(BBS_SEQ.NEXTVAL, #{title}, #{content}, TO_CHAR(SYSDATE, 'yy.MM.dd HH:mm:ss'))
-	</select>
+	</insert>
 	
 	<!-- 수정 -->
-	<select id="updateBbs">
+	<update id="updateBbs" parameterType="Bbs">
 		UPDATE BBS
 		   SET TITLE = #{title}
 		     , CONTENT = #{content}
 		     , MODIFIED_DATE = TO_CHAR(SYSDATE, 'yy.MM.dd HH:mm:ss')
 		 WHERE BBS_NO = #{bbsNo}
-	</select>
-
+	</update>
+	
 	<!-- 삭제 -->
-	<select id="deleteBbs">
-		DELETE 
+	<delete id="deleteBbs" parameterType="int">
+		DELETE
 		  FROM BBS
 		 WHERE BBS_NO = #{bbsNo}
-	</select>
+	</delete>
 
 </mapper>
