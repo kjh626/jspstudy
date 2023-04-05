@@ -38,7 +38,7 @@ public class BbsDAO {
 	// 1. 목록
 	public List<BbsDTO> selectAllBbsList() {
 		SqlSession ss = factory.openSession();
-		List<BbsDTO> bbsList = ss.selectList(NS + "selectAllBbsList");
+		List<BbsDTO> bbsList = ss.selectList(NS + "selectAllBbsList");  // mapper's namespace + query's id
 		ss.close();
 		return bbsList;
 		// 바로 return하지 않고 저장한 이유는? close()를 해주기 위해서
@@ -48,7 +48,7 @@ public class BbsDAO {
 	public BbsDTO selectBbsByNo(int bbsNo) {
 		// SqlSession은 공장에서 뽑아준다.
 		SqlSession ss = factory.openSession();
-		BbsDTO bbs = ss.selectOne(NS + "selectBbsByNo", bbsNo);
+		BbsDTO bbs = ss.selectOne(NS + "selectBbsByNo", bbsNo);    // parameter 전달이 있음을 주의!
 		ss.close();
 		return bbs;
 	}
