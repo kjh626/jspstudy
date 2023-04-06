@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mybatis.mapper.member">
+
+	<!-- 목록 -->
+	<!-- 지금은 목록 짜는 코드 쉬운데, 나중가서는 목록이 어려워진다. 지금처럼 한번에 100개 1000개 아니고, 실질적으로는 몇 개씩 끊어서 가져오는 시스템으로 되어있기 때문! -->
+	<!-- select의 경우 resultType을 적어줘야 한다.  -->
+	<select id="selectAllMembers" resultType="Member">
+		SELECT MEMBER_NO, ID, NAME, GENDER, ADDRESS
+		  FROM MEMBER
+		 ORDER BY MEMBER_NO DESC
+	</select>
+
+	<!-- 전체 회원 수 -->
+	<select id="getMemberCount" resultType="int">
+		SELECT COUNT(*)
+		  FROM MEMBER
+	</select>
+	
+	<!-- 상세 -->
+	<!-- 자바에서 전달한 데이터도 필요하다. resultType + ParameterType 이 2가지가 필요. -->
+	<!-- 다오의 메소드가 전달한 변수의 이름이 쿼리문에 그대로 전달된다고 생각해라 => memberNo -->
+	<!-- 실행이 끝난 뒤 전달해주는 결과의 타입을 정해줄 수 있다.
+	     ※ 셀렉트의 결과는 반환타입을 List 이렇게 잡지 않는다. 개수에 상관없이 리스트에 저장되는 Member를 타입으로 잡는다.
+	     우리가 사용한 Member는 mybatis-config의 타입앨리어스를 말하는 것 (별명) => 실제로는 domain패키지에있는 Member클래스를 말한다.
+	     만약 별명을 그냥 M으로 해주면 resultType="M"이 되는 것이다. alias와 resultType의 이름을 맞춰준다고 생각해라
+	     그게 싫으면 domain.Member라고 적어줘도 된다.
+	-->
+	<select id="selectMemberByNo" parameterType="int" resultType="Member">
+		SELECT MEMBER_NO, ID, NAME, GENDER, ADDRESS
+		  FROM MEMBER
+		 WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<!-- 삽입 -->
+	<insert id="insertMember" parameterType="Member">
+		INSERT INTO MEMBER
+			(MEMBER_NO, ID, NAME, GENDER, ADDRESS)
+		VALUES
+			(MEMBER_SEQ.NEXTVAL, #{id}, #{name}, #{gender}, #{address})
+	</insert>
+	
+	<!-- 수정 -->
+	<update id="updateMember" parameterType="Member">
+		UPDATE MEMBER
+		   SET NAME = #{name}
+		     , GENDER = #{gender}
+		     , ADDRESS = #{address}
+		 WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="deleteMember" parameterType="int">
+		DELETE
+		  FROM MEMBER
+		 WHERE MEMBER_NO = #{memberNo}
+	</delete>
+	
+</mapper>

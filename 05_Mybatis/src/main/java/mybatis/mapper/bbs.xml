@@ -28,7 +28,8 @@
 		VALUES
 		<!-- 객체로 전달해주면 마이바티스가 객체의 필드값을 꺼내서 써준다
 			#{title}이렇게 써도(마이바티스가 BbsDTO의 getter를 호출해서 값을 전달)	getTitle, getContent-->
-			(BBS_SEQ.NEXTVAL, #{title}, #{content}, TO_CHAR(SYSDATE, 'yy.MM.dd HH:mm:ss'))
+			(BBS_SEQ.NEXTVAL, #{title}, #{content}, TO_CHAR(SYSDATE, 'YY.MM.DD HH:MI:SS'))
+			<!-- 오라클은 시간 나타낼 때, 대소문자 구분 x  분 은 MI로 구분 -->
 	</insert>
 	
 	<!-- 수정 -->
@@ -36,7 +37,7 @@
 		UPDATE BBS
 		   SET TITLE = #{title}
 		     , CONTENT = #{content}
-		     , MODIFIED_DATE = TO_CHAR(SYSDATE, 'yy.MM.dd HH:mm:ss')
+		     , MODIFIED_DATE = TO_CHAR(SYSDATE, 'YY.MM.DD HH:MI:SS')
 		 WHERE BBS_NO = #{bbsNo}
 	</update>
 	

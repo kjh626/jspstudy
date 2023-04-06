@@ -19,6 +19,7 @@ public class BbsDAO {
 	private static BbsDAO dao = new BbsDAO();
 	private BbsDAO() {
 		try {
+			// 이거 내용 마이바티스-시작하기 XML에서 SqlSessionFactory 빌드하기 참고
 			String resource = "mybatis/config/mybatis-config.xml";
 			InputStream inputStream = Resources.getResourceAsStream(resource);
 			factory = new SqlSessionFactoryBuilder().build(inputStream);
@@ -37,6 +38,7 @@ public class BbsDAO {
 	
 	// 1. 목록
 	public List<BbsDTO> selectAllBbsList() {
+		// ↓ 얘가 DB와 연결해주는 거다
 		SqlSession ss = factory.openSession();
 		List<BbsDTO> bbsList = ss.selectList(NS + "selectAllBbsList");  // mapper's namespace + query's id
 		ss.close();
