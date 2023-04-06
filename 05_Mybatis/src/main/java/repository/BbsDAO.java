@@ -40,10 +40,10 @@ public class BbsDAO {
 	public List<BbsDTO> selectAllBbsList() {
 		// ↓ 얘가 DB와 연결해주는 거다
 		SqlSession ss = factory.openSession();
-		List<BbsDTO> bbsList = ss.selectList(NS + "selectAllBbsList");  // mapper's namespace + query's id
+		List<BbsDTO> bbsList = ss.selectList(NS + "selectAllBbsList");  // mapper's namespace + query's id = mybatis.mapper.bbs.selectAllBbsList
 		ss.close();
 		return bbsList;
-		// 바로 return하지 않고 저장한 이유는? close()를 해주기 위해서
+		// 바로 bbsList를 return하지 않고 저장한 이유는? close()를 해주기 위해서
 	}
 
 	// 2. 상세
@@ -57,8 +57,8 @@ public class BbsDAO {
 	
 	// 3. 삽입
 	public int insertBbs(BbsDTO bbs) {
-		// 오토 커밋 여부를 물어보는 boolean타입 매개변수
-		// 우리는 수동으로 커밋해줄 거라 false줬다
+		// factory.openSession메소드에 오토 커밋 여부를 물어보는 boolean타입 매개변수를 넣어줄 수 있다.
+		// 우리는 수동으로 커밋해줄 거라 false를 줬다
 		SqlSession ss = factory.openSession(false);    // autoCommit을 하지 않고, 직접 Commit 할 거다.
 		// 매개변수 2개짜리 쓸 거다. bbs 전달해줘야 하기 때문에
 		int insertResult = ss.insert(NS + "insertBbs", bbs);

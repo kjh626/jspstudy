@@ -37,6 +37,7 @@ public class BbsEditService implements IBbsService {
 		}
 		
 		request.setAttribute("bbs", bbs);
+		
 		// 상세보기와 경로만 다르다
 		return new ActionForward("bbs/edit.jsp", false);
 	}

@@ -16,10 +16,6 @@ public class BbsAddService implements IBbsService {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 
 		BbsDTO bbs = new BbsDTO();
-		/*
-		 * Optional<String> opt = Optional.ofNullable(request.getParameter("title"));
-		 * title = opt.or
-		 */
 		bbs.setTitle(request.getParameter("title"));
 		bbs.setContent(request.getParameter("content"));
 		
