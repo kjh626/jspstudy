@@ -14,7 +14,6 @@ public class BbsListService implements IBbsService {
 		
 		request.setAttribute("bbslist", BbsDAO.getInstance().selectAllBbsList());
 		return new ActionForward("bbs/list.jsp", false);
-		
 		// 전달 완료
 	}
 
