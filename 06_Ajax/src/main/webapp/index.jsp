@@ -93,9 +93,9 @@
 	$('#id').on('keyup', function(){
 		var regId = /^[a-z_-][0-9a-z_-]{4,19}$/;
 		if(regId.test(id.value)){
-			$('#correct').text('올바른 아이디입니다.')
+			$('#correct').text('올바른 아이디입니다.').css('color', 'green');
 		} else {
-			$('#correct').text('틀린 아이디 구성입니다.').attr('style', )
+			$('#correct').text('틀린 아이디 구성입니다.').css('color', 'red');
 		}
 	})
 	function fnGetAllMember(){
@@ -228,7 +228,27 @@
 	}
 	
 	function fnRemoveMember() {
-		
+		if(confirm('삭제하시겠습니까?')) {
+			$.ajax({
+				type: 'post',
+				url: '${contextPath}/remove.do',
+				data: 'memberNo=' + $('#memberNo').val(),
+				dataType: 'json',
+	
+				success: function(resData){
+					if(resData.deleteResult === 1) {
+						alert('삭제되었습니다.');
+						fnInit();
+						fnGetAllMember();
+					} else {
+						alert('회원 삭제에 실패했습니다.');
+					}
+				},
+				error: function(jqXHR){
+					alert('에러코드:' + jqXHR.status);
+				}
+			})
+		}
 	}
 	
 </script>
