@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" /> 
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,15 +18,16 @@
 			<c:if test="${sessionScope.loginId != null}">
 				<button>저장하기</button>
 				<%-- if 조건 충족해야 저장하기 버튼을 보여주겠다. --%>
-			</c:if>		
+			</c:if>
 			<input type="button" value="목록" onclick="goList()">
-		</div>		
+		</div>
 	</form>
-
+	
 	<script>
 		function goList(){
-			location.href = '${contextPath}/list.post';
+			location.href='${contextPath}/list.post';
 		}
 	</script>
+
 </body>
 </html>

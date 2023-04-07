@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import service.IPostService;
+import service.PostDeleteService;
+import service.PostDetailService;
 import service.PostListService;
 import service.PostSaveService;
 
@@ -45,6 +47,12 @@ public class PostController extends HttpServlet {
 		case "/write.post":
 			path = "post/write.jsp";
 			// 이러면 service는 null인 상태라 if문(service != null)은 넘어가고, if(path !=null) 실행된다.
+			break;
+		case "/detail.post":
+			service = new PostDetailService();
+			break;
+		case "/delete.post":
+			service = new PostDeleteService();
 			break;
 		}
 
