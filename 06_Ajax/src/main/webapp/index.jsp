@@ -22,6 +22,7 @@
 			<div>
 				<label for="id">아이디</label>
 				<input type="text" id="id" name="id">
+				<span id="correct"></span>
 			</div>
 			<div>
 				<label for="name">이름</label>
@@ -89,6 +90,14 @@
 		$('#address').val('');
 		
 	}
+	$('#id').on('keyup', function(){
+		var regId = /^[a-z_-][0-9a-z_-]{4,19}$/;
+		if(regId.test(id.value)){
+			$('#correct').text('올바른 아이디입니다.')
+		} else {
+			$('#correct').text('틀린 아이디 구성입니다.').attr('style', )
+		}
+	})
 	function fnGetAllMember(){
 		/* 
 			ajax는 목록 달라고 요청하고, 목록을 응답으로 받아와야 한다. 
@@ -209,6 +218,9 @@
 				} else {
 					alert('회원 정보 수정이 실패했습니다.');
 				}
+			},
+			error: function(jqXHR){
+				alert(jqXHR.responseText + '(' + jqXHR.status + ')' );
 			}
 		})
 		

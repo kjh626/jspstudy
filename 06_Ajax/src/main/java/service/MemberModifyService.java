@@ -22,24 +22,38 @@ public class MemberModifyService implements IMemberService {
 		member.setGender(request.getParameter("gender"));
 		member.setAddress(request.getParameter("address"));
 		
-		// Member member 객체의 정보를 이용해 DB의 내용을 수정
-		int updateResult = MemberDAO.getInstance().updateMember(member);
-		
-		// 응답 데이터 형식 (JSON)
-		response.setContentType("application/json; charset=UTF-8");
-		
-		// 응답 데이터 만들기
-		/*
-			"updateResult"= 1
-		*/
-		JSONObject obj = new JSONObject();
-		obj.put("updateResult", updateResult);
-		
-		// 응답
-		PrintWriter out = response.getWriter();
-		out.println(obj.toString());
-		out.flush();
-		out.close();
+		try {
+			// Member member 객체의 정보를 이용해 DB의 내용을 수정
+			int updateResult = MemberDAO.getInstance().updateMember(member);
+			
+			// 응답 데이터 형식 (JSON)
+			response.setContentType("application/json; charset=UTF-8");
+			
+			// 응답 데이터 만들기
+			/*
+				"updateResult"= 1
+			*/
+			JSONObject obj = new JSONObject();
+			obj.put("updateResult", updateResult);
+			
+			// 응답
+			PrintWriter out = response.getWriter();
+			out.println(obj.toString());
+			out.flush();
+			out.close();
+		} catch(Exception e) {
+			response.setContentType("text/plain; charset=UTF-8");
+			
+			response.setStatus(777);
+			
+			String msg = "변경저장이 되지 않았습니다.";
+			
+			PrintWriter out = response.getWriter();
+			out.println(msg);
+			out.flush();
+			out.close();
+					
+		}
 		
 	}
 
