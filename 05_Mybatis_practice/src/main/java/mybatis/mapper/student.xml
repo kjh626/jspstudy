@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 매퍼의 namespace는 bbs.xml의 경로를 작성해 주는 것이다. 확장자는 빼라(마침표로 패키지를 구분하고 있기 때문에) -->
+<!-- namespace는 mybatis.mapper.bbs.xml 파일을 의미한다. -->
+<mapper namespace="mybatis.mapper.student">
+	
+	<!-- 목록 -->
+	<select id="selectAllStudentList" resultType="Student">
+		SELECT STU_NO, NAME, KOR, ENG, MATH, AVE, GRADE
+		  FROM STUDENT
+		 ORDER BY STU_NO DESC
+	</select>
+	
+	<!-- 상세 -->
+	<select id="selectStudentByNo" parameterType="int" resultType="Student">
+		SELECT STU_NO, NAME, KOR, ENG, MATH, AVE, GRADE
+		  FROM STUDENT
+		 WHERE STU_NO = #{stuNo}
+	</select>
+	
+	<!-- 삽입 -->
+	<insert id="insertStudent" parameterType="Student">
+		INSERT INTO STUDENT
+			(STU_NO, NAME, KOR, ENG, MATH)
+		VALUES
+			(STUDENT_SEQ.NEXTVAL, #{name}, #{kor}, #{eng}, #{math})
+	</insert>
+	
+	<!-- 수정 -->
+	<update id="updateStudent" parameterType="Student">
+		UPDATE STUDENT
+		   SET NAME = #{namr}
+		     , KOR = #{kor}
+		     , ENG = #{eng}
+		     , MATH = #{math}
+		 WHERE STU_NO = #{stuNo}
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="deleteStudent" parameterType="int">
+		DELETE
+		  FROM STUDENT
+		 WHERE STU_NO = #{stuNo}
+	</delete>
+
+</mapper>
