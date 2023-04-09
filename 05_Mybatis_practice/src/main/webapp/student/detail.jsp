@@ -14,8 +14,7 @@
 <script src="${contextPath}/resources/js/lib/jquery-3.6.4.min.js"></script>
 <script>
 	function goEdit(){
-		location.href='${contextPath}/edit.do?stuNo=${student.stuNo}';
-		
+		$('#frm_edit').submit();
 	}
 	function goList(){
 		location.href='${contextPath}/list.do';
@@ -27,26 +26,28 @@
 	<div>
 		<h1>학생 상세 조회</h1>
 	</div>
-	<div>
-		<label for="stuNo">학번</label>
-		<input type="text" id="stuNo" value="${student.stuNo}" readonly>
-	</div>
-	<div>
-		<label for="name">이름</label>
-		<input type="text" value="${student.name}">
-	</div>
-	<div>
-		<label for="kor">국어</label>
-		<input type="text" value="${student.kor}">
-	</div>
-	<div>
-		<label for="eng">영어</label>
-		<input type="text" value="${student.eng}">
-	</div>
-	<div>
-		<label for="math">수학</label>
-		<input type="text" value="${student.math}">
-	</div>
+	<form id="frm_edit" method="post" action="${contextPath}/edit.do">
+		<div>
+			<label for="stuNo">학번</label>
+			<input type="text" id="stuNo" name="stuNo" value="${student.stuNo}" readonly>
+		</div>
+		<div>
+			<label for="name">이름</label>
+			<input type="text" value="${student.name}" name="name">
+		</div>
+		<div>
+			<label for="kor">국어</label>
+			<input type="text" value="${student.kor}" name="kor">
+		</div>
+		<div>
+			<label for="eng">영어</label>
+			<input type="text" value="${student.eng}" name="eng">
+		</div>
+		<div>
+			<label for="math">수학</label>
+			<input type="text" value="${student.math}" name="math">
+		</div>
+	</form>
 	<div>
 		<span>평균</span>
 		<input type="text" value="${student.ave}" readonly>

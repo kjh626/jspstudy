@@ -99,7 +99,6 @@
 	</div>
 	
 	<script>
-		
 	
 		function goAll(){
 			<c:forEach var="student" items="${studentlist}" varStatus="vs" step="3">

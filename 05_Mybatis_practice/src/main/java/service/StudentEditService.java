@@ -22,7 +22,7 @@ public class StudentEditService implements IStudentService {
 		int kor = Integer.parseInt(request.getParameter("kor"));
 		int eng = Integer.parseInt(request.getParameter("eng"));
 		int math = Integer.parseInt(request.getParameter("math"));
-		double ave = (kor + eng + math) / 3.0;
+		double ave = (kor + eng + math) / 3.00;
 		String grade = "";
 		if(ave >= 90) {
 			grade = "A";

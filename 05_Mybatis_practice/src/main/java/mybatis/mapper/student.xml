@@ -36,8 +36,8 @@
 		     , KOR = #{kor}
 		     , ENG = #{eng}
 		     , MATH = #{math}
-		     , AVE = #{AVE}
-		     , GRADE = #{GRADE}
+		     , AVE = #{ave}
+		     , GRADE = #{grade}
 		 WHERE STU_NO = #{stuNo}
 	</update>
 	
