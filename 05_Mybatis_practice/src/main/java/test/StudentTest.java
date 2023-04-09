@@ -7,7 +7,7 @@ import org.junit.Test;
 import domain.StudentDTO;
 import repository.StudentDAO;
 
-public class BbsTest {
+public class StudentTest {
 
 	/*
 	1. JUnit4 라이브러리

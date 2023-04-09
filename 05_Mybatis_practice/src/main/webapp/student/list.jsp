@@ -25,8 +25,8 @@
 		
 		<div>
 			<label for="avg">평균</label>
-			<input type="text" name="begin" placeholder="begin"> ~
-			<input type="text" name="end" placeholder="end">
+			<input type="text" name="begin" id='begin' placeholder="begin"> ~
+			<input type="text" name="end" id='end' placeholder="end">
 			<input type="button" value="조회" onclick="goDetail()">
 			<input type="button" value="전체조회" onclick="goAll()">
 		</div>
@@ -35,7 +35,7 @@
 		
 		<div>
 			<c:forEach var="student" items="${studentlist}" varStatus="vs">
-				<div>순번: ${vs.count} ${student.name}님 ${student.ave}점</div>
+				<div>${vs.count}위 ${student.name}님 ${student.ave}점</div>
 			</c:forEach>
 		</div>
 		
@@ -76,7 +76,10 @@
 								<td>${student.grade}</td>
 								<td>
 									<input type="button" class="btn_detail" value="상세" data-stu_no="${student.stuNo}">
-									<input type="button" class="btn_remove" value="삭제">
+									<input type="button" class="btn_remove" value="삭제" onclick='goRemove()'>
+									<form id="frm_remove" method="post" action="${contextPath}/remove.do">
+										<input type="hidden" name="stuNo" value="${student.stuNo}">
+									</form>
 								</td>
 							</tr>
 						</c:forEach>
@@ -102,12 +105,17 @@
 		}
 		$(function(){
 			$('.btn_detail').on('click', function(){
-				<%-- ★ 클릭한 bbs 대상은 ★this★라고 부른다 (이벤트 대상은 this. 클릭한 대상은 this!) --%>
-				<%-- .요청. 상세보기로 넘겨주면서 파라미터 붙여준다 --%>
-				<%-- ↓ 클릭한 div클래스 . 제이쿼리는 data메소드에 변수이름만 적어주면 값을 가져온다--%>
-				location.href = '${contextPath}/detail.do?stuNo=' + $(this).data('stu_no')
+				location.href = '${contextPath}/detail.do?stuNo=' + $(this).data('stu_no') + '&begin=' + $('#begin').val() + '&end=' + $('#end').val();
 			})
 		})
+		function goRemove(){
+		// 주소로 remove.do 하면 못하게 하도록 튕겨내는 것 4장에서 했었다.. , 삭제버튼을 form방식으로 만들고 포스트방식으로만 삭제 가능하게 만들어 줬었음.
+		// GET방식(주소로 요청) 으로 요청하면 서비스에 잘못된 요청 alert 넣어줘서 처리했었다.
+		if(confirm('삭제할거야?')){ 
+			// location 안 쓰고 frm_remove에 서브밋을 해준다
+			$('#frm_remove').submit();
+		} 
+	}
 	
 	</script>
 
