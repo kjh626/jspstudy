@@ -11,7 +11,7 @@
 	<select id="selectAllStudentList" resultType="Student">
 		SELECT STU_NO, NAME, KOR, ENG, MATH, AVE, GRADE
 		  FROM STUDENT
-		 ORDER BY STU_NO DESC
+		 ORDER BY AVE DESC
 	</select>
 	
 	<!-- 상세 -->
@@ -24,18 +24,20 @@
 	<!-- 삽입 -->
 	<insert id="insertStudent" parameterType="Student">
 		INSERT INTO STUDENT
-			(STU_NO, NAME, KOR, ENG, MATH)
+			(STU_NO, NAME, KOR, ENG, MATH, AVE, GRADE)
 		VALUES
-			(STUDENT_SEQ.NEXTVAL, #{name}, #{kor}, #{eng}, #{math})
+			(STUDENT_SEQ.NEXTVAL, #{name}, #{kor}, #{eng}, #{math}, #{ave}, #{grade})
 	</insert>
 	
 	<!-- 수정 -->
 	<update id="updateStudent" parameterType="Student">
 		UPDATE STUDENT
-		   SET NAME = #{namr}
+		   SET NAME = #{name}
 		     , KOR = #{kor}
 		     , ENG = #{eng}
 		     , MATH = #{math}
+		     , AVE = #{AVE}
+		     , GRADE = #{GRADE}
 		 WHERE STU_NO = #{stuNo}
 	</update>
 	

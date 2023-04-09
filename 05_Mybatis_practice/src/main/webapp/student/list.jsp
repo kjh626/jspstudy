@@ -33,8 +33,8 @@
 		
 		<hr>
 		
-		<div>
-			<c:forEach var="student" items="${studentlist}" varStatus="vs">
+		<div id="open">
+			<c:forEach var="student" items="${studentlist}" varStatus="vs" step="3">
 				<div>${vs.count}위 ${student.name}님 ${student.ave}점</div>
 			</c:forEach>
 		</div>
@@ -100,6 +100,12 @@
 	
 	<script>
 		
+	
+		function goAll(){
+			<c:forEach var="student" items="${studentlist}" varStatus="vs" step="3">
+				$('#open').append('<div>' + 위 + '${student.name}님 ${student.ave}점</div>')
+			</c:forEach>
+		}
 		function goWrite(){
 			location.href = '${contextPath}/write.do';
 		}
@@ -109,13 +115,13 @@
 			})
 		})
 		function goRemove(){
-		// 주소로 remove.do 하면 못하게 하도록 튕겨내는 것 4장에서 했었다.. , 삭제버튼을 form방식으로 만들고 포스트방식으로만 삭제 가능하게 만들어 줬었음.
-		// GET방식(주소로 요청) 으로 요청하면 서비스에 잘못된 요청 alert 넣어줘서 처리했었다.
-		if(confirm('삭제할거야?')){ 
-			// location 안 쓰고 frm_remove에 서브밋을 해준다
-			$('#frm_remove').submit();
-		} 
-	}
+			// 주소로 remove.do 하면 못하게 하도록 튕겨내는 것 4장에서 했었다.. , 삭제버튼을 form방식으로 만들고 포스트방식으로만 삭제 가능하게 만들어 줬었음.
+			// GET방식(주소로 요청) 으로 요청하면 서비스에 잘못된 요청 alert 넣어줘서 처리했었다.
+			if(confirm('삭제할거야?')){ 
+				// location 안 쓰고 frm_remove에 서브밋을 해준다
+				$('#frm_remove').submit();
+			} 
+		}
 	
 	</script>
 

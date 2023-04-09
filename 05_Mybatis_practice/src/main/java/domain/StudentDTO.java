@@ -13,6 +13,6 @@ public class StudentDTO {
 	private int kor;
 	private int eng;
 	private int math;
-	private int ave;
+	private double ave;
 	private String grade;
 }

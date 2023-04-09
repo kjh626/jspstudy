@@ -19,10 +19,29 @@ public class StudentEditService implements IStudentService {
 		
 		StudentDTO student = StudentDAO.getInstance().selectStudentByNo(stuNo);
 		
+		int kor = Integer.parseInt(request.getParameter("kor"));
+		int eng = Integer.parseInt(request.getParameter("eng"));
+		int math = Integer.parseInt(request.getParameter("math"));
+		double ave = (kor + eng + math) / 3.0;
+		String grade = "";
+		if(ave >= 90) {
+			grade = "A";
+		} else if (ave >= 80) {
+			grade = "B";
+		} else if (ave >= 70) {
+			grade = "C";
+		} else if (ave >= 60) {
+			grade = "D";
+		} else {
+			grade = "F";
+		}
+		
 		student.setName(request.getParameter("name"));
-		student.setKor(Integer.parseInt(request.getParameter("kor")));
-		student.setEng(Integer.parseInt(request.getParameter("eng")));
-		student.setMath(Integer.parseInt(request.getParameter("math")));
+		student.setKor(kor);
+		student.setEng(eng);
+		student.setMath(math);
+		student.setAve(ave);
+		student.setGrade(grade);
 		
 		int updateResult = StudentDAO.getInstance().updateStudent(student);
 		
@@ -46,7 +65,7 @@ public class StudentEditService implements IStudentService {
 			try {
 				PrintWriter out = response.getWriter();
 				out.println("<script>");
-				out.println("alert('BBS가 수정되었습니다.')");
+				out.println("alert('학생 정보가 수정되었습니다.')");
 				out.println("location.href='" + request.getContextPath() + "/detail.do?stuNo=" + stuNo + "'");
 				out.println("</script>");
 				out.flush();
