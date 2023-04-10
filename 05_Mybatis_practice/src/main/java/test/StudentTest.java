@@ -38,22 +38,22 @@ public class StudentTest {
 		사용법 : 첫번째 는 기댓값, 두번째는 실제로 발생한 값 => 우리는 목록의 개수가 2개이길 기대한다. 실제로는 몇개였따?(실제로는 DAO의 select결과를 호출한 결과에 size처리 해보면 됨. = 실제 database에서 가져온 목록의 개수)
 		이거 2개 비교해봐서 같으면 테스트성공(초록불), 다르면 테스트실패(빨간불) 
 		*/
-		assertEquals(2, dao.selectAllBbsList().size());
+		assertEquals(2, dao.selectAllStudentList().size());
 	}
 	
 	@Test
 	public void 상세테스트() {
 		// 널이 아니면 통과
-		assertNotNull(dao.selectBbsByNo(1));
+		assertNotNull(dao.selectStudentByNo(1));
 	}
 	
 	@Test
 	public void 삽입테스트() {
 		// 테스트에 사용할 bean만들어주기
-		StudentDTO bbs = new StudentDTO();
-		bbs.setTitle("테스트제목");
-		bbs.setContent("테스트내용");
-		assertEquals(1, dao.insertBbs(bbs));
+		StudentDTO student = new StudentDTO();
+		student.setName("테스트제목");
+		student.setKor(90);
+		assertEquals(1, dao.insertStudent(student));
 	}
 	
 	// 수정할 bbs만들어서 돌려보고
