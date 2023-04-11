@@ -15,6 +15,9 @@
 				location.href = '${contextPath}/delete.post?post_no=${post.post_no}';
 			}
 		})
+		$('#btn_modify').click(function(){
+			location.href = '${contextPath}/update.post?post_no=${post.post_no}';
+		})
 	})
 </script>
 </head>
@@ -33,6 +36,7 @@
 	</div>
 	
 	<div>
+		<input type="button" id="btn_modify" value="수정하기">
 		<button id="btn_remove">삭제</button>
 	</div>
 
