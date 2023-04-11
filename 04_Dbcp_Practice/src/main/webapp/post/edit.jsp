@@ -10,12 +10,13 @@
 </head>
 <body>
 
-	<form method="post" action="${contextPath}/save.post">
+	<form method="post" action="${contextPath}/modify.post">
 		<div><input type="text" name="writer" value="${sessionScope.loginId}" readonly></div>
-		<div><input type="text" name="title" placeholder="제목"></div>
-		<div><textarea name="content" rows="5" cols="30" placeholder="내용"></textarea></div>
+		<div><input type="text" name="title" value="${post.title}"></div>
+		<div><textarea name="content" rows="5" cols="30" >${post.content}</textarea></div>
 		<div>
 			<c:if test="${sessionScope.loginId != null}">
+				<input type="hidden" name="post_no" value="${post.post_no}">
 				<button>저장하기</button>
 				<%-- if 조건 충족해야 저장하기 버튼을 보여주겠다. --%>
 			</c:if>

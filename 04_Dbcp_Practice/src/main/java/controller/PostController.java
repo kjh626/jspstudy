@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import service.IPostService;
 import service.PostDeleteService;
 import service.PostDetailService;
+import service.PostEditService;
 import service.PostListService;
+import service.PostModifyService;
 import service.PostSaveService;
 
 @WebServlet("*.post")    // /list.post  /detail.post  /save.post  /change.post  /edit.post  /delete.post
@@ -53,6 +56,12 @@ public class PostController extends HttpServlet {
 			break;
 		case "/delete.post":
 			service = new PostDeleteService();
+			break;
+		case "/edit.post":
+			service = new PostEditService();
+			break;
+		case "/modify.post":
+			service = new PostModifyService();
 			break;
 		}
 
