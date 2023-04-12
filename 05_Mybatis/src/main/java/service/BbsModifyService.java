@@ -15,6 +15,9 @@ public class BbsModifyService implements IBbsService {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		
 		BbsDTO bbs = new BbsDTO();
+		// input으로 값을 넘겨줄 때는 값이 입력이 안되어 있을 땐 공백으로 넘겨진다. (null이 아니라)
+		/* <input name=""> input으로 넘길 때만 공백으로 처리해주면 된다.
+			나머지는 다 옵셔널로 null 체크 가능*/
 		// 널 체크가 아닌 공백 체크이기 때문에 optional 안 씀 
 		int bbsNo = Integer.parseInt(request.getParameter("bbsNo").isEmpty() ? "0" : request.getParameter("bbsNo"));
 		bbs.setBbsNo(bbsNo);
